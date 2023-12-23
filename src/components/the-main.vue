@@ -1,8 +1,13 @@
+<script setup lang="ts">
+import FlexBox from './box/flex-box.vue';
+
+</script>
 <template>
   <main class="main">
     <div class="main-container">
       <div class="main-item">
-        aaaa
+        <FlexBox d="row" />
+        <slot></slot>
       </div>
     </div>
   </main>
@@ -16,7 +21,6 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    border-bottom: 1px solid lightgreen;
   }
 
   .main-item {

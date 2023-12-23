@@ -1,5 +1,5 @@
 @import './base.css';
-
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
 
 #app {
   display: grid;
@@ -11,11 +11,8 @@
     'aside footer';
   height: 100vh;
 
-  .header {
-    grid-area: header;
-    background: whitesmoke;
-  }
   .aside {
+    grid-area: aside;
     background: var(--vt-c-indigo);
   }
   .main {

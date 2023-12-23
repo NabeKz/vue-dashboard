@@ -4,11 +4,14 @@ const { h, w } = defineProps<{ h?: Space, w?: Space }>()
 const width = w ? w : undefined;
 const height = h ? h : undefined;
 </script>
+
 <template>
   <div class="space-box" :style="{ width, height }">
   </div>
 </template>
 
 <style scoped>
-.space-box {}
-</style>
+.space-box {
+  display: flex;
+}
+</style>./flex-box-t

@@ -1,24 +1,16 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import Main from './components/the-main.vue'
-import TheHeader from './components/the-header.vue'
+import { RouterView } from 'vue-router'
+import TheHeader from './components/header/index.vue'
+import SideMenu from './components/sidemenu/index.vue'
 import TheFooter from './components/the-footer.vue'
-import SideMenu from './components/the-aside.vue'
+import Main from './components/the-main.vue'
 </script>
 
 <template>
-  <TheHeader />
+  <TheHeader class="header" />
   <SideMenu />
-  <Main></Main>
+  <Main>
+    <RouterView />
+  </Main>
   <TheFooter />
 </template>
-
-<style scoped>
-.header,
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-</style>
