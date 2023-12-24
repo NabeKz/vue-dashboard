@@ -4,7 +4,7 @@ import TableContainer from '@/components/table/table-container.vue';
 </script>
 
 <template>
-  <FlexBox d="column">
+  <FlexBox column>
     home
     <TableContainer>
       <template #header>
