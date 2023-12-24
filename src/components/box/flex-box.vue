@@ -7,18 +7,20 @@ defineProps<Props>()
 </script>
 
 <template>
-  <div class="flex-box" :class="[d]"></div>
+  <div class="flex-box" :class="[d]">
+    <slot></slot>
+  </div>
 </template>
 
 <style scoped>
 .flex-box {
   display: flex;
 
-  & .row {
+  &.row {
     flex-direction: row;
   }
 
-  & .column {
+  &.column {
     flex-direction: column;
   }
 }

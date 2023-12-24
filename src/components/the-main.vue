@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import FlexBox from './box/flex-box.vue';
-
 </script>
 <template>
   <main class="main">
     <div class="main-container">
       <div class="main-item">
-        <FlexBox d="row" />
         <slot></slot>
       </div>
     </div>
@@ -24,16 +21,13 @@ import FlexBox from './box/flex-box.vue';
   }
 
   .main-item {
-    flex-basis: 250px;
-    flex-grow: 1;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-grow: 1;
     padding: 20px;
-    height: 100px;
+    height: calc(100vh - 100px);
+    overflow: scroll;
     border: 1px solid darkblue;
     border-radius: 4px;
-    color: darkblue;
   }
 }
 </style>
