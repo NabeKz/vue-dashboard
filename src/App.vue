@@ -4,6 +4,7 @@ import TheHeader from './components/header/index.vue'
 import SideMenu from './components/sidemenu/index.vue'
 import TheFooter from './components/the-footer.vue'
 import Main from './components/the-main.vue'
+import ModalOverlay from "./components/modal-overlay.vue"
 </script>
 
 <template>
@@ -13,4 +14,5 @@ import Main from './components/the-main.vue'
     <RouterView />
   </Main>
   <TheFooter />
+  <ModalOverlay />
 </template>

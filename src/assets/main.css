@@ -1,5 +1,5 @@
 @import './base.css';
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0');
 
 #app {
   display: grid;
@@ -25,7 +25,45 @@
   }
 }
 
-ul, li {
+ul,
+li {
   list-style: none;
   padding: 0;
+}
+
+.mt-8 {
+  margin-top: 8px;
+}
+.mt-16 {
+  margin-top: 16px;
+}
+.mt-24 {
+  margin-top: 24px;
+}
+.mt-32 {
+  margin-top: 32px;
+}
+.pa-8 {
+  padding: 8px;
+}
+.pa-16 {
+  padding: 16px;
+}
+.pa-24 {
+  padding: 24px;
+}
+.pa-32 {
+  padding: 32px;
+}
+.pt-8 {
+  padding-top: 8px;
+}
+.pt-16 {
+  padding-top: 16px;
+}
+.pt-24 {
+  padding-top: 24px;
+}
+.pt-32 {
+  padding-top: 32px;
 }

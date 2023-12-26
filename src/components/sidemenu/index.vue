@@ -16,6 +16,7 @@ export default {
 
 <style scoped>
 .aside {
+  grid-area: aside;
   height: 100%;
   width: 240px;
   position: fixed;
@@ -33,4 +34,5 @@ export default {
     background: royalblue;
     cursor: pointer;
   }
-}</style>
+}
+</style>

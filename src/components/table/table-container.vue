@@ -2,10 +2,6 @@
 import { onMounted, useSlots } from 'vue';
 
 const { header } = useSlots()
-
-onMounted(() => {
-  console.debug(header?.())
-})
 </script>
 
 <template>
@@ -26,13 +22,19 @@ onMounted(() => {
 <style scoped>
 .table-container {
   border-collapse: collapse;
-  font-size: 2rem;
+  font-size: 1.2rem;
 
   :slotted(th) {
     padding: 8px;
     font-weight: bold;
     border-bottom: solid 1px;
     background: whitesmoke;
+    width: 200px;
+    text-align: left;
+  }
+
+  :slotted(th:last-child) {
+    width: 80px;
   }
 
   :slotted(td) {
