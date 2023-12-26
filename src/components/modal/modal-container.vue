@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import FlexBox from '../box/flex-box.vue';
 import SmallButton from '../button/small-button.vue';
 
 type Props = {

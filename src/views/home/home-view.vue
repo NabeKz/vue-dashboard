@@ -3,6 +3,7 @@ import FlexBox from '@/components/box/flex-box.vue';
 import TableContainer from '@/components/table/table-container.vue';
 import SmallButton from '@/components/button/small-button.vue';
 import ModalContainer from '@/components/modal/modal-container.vue';
+import EditModal from './components/edit-modal.vue';
 import { ref } from 'vue';
 
 const open = ref(false)
@@ -30,7 +31,9 @@ const onClick = () => {
       </template>
     </TableContainer>
   </FlexBox>
+
   <ModalContainer title="aaa" :open="open" @close="open = false">
+    <EditModal />
   </ModalContainer>
 </template>
 
