@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import FlexBox from '../box/flex-box.vue';
 import SmallButton from '../button/small-button.vue';
 
 type Props = {
@@ -42,6 +43,9 @@ const emits = defineEmits<{ close: [] }>()
   height: 500px;
   background: white;
   z-index: 1000;
+  display: flex;
+  place-content: center;
+  place-items: center;
 }
 
 .modal-enter-from,
