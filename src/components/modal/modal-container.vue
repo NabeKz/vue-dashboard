@@ -12,9 +12,9 @@ const emits = defineEmits<{ close: [] }>()
 </script>
 
 <template>
-  <Teleport to="#modal-overlay">
+  <Teleport to="body">
     <Transition name="modal" mode="out-in">
-      <div v-if="open" class="modal-container">
+      <div v-if="open" class="modal-mask">
         <div class="modal-content">
           <slot></slot>
           <SmallButton type="submit" @click="emits('close')">close</SmallButton>
@@ -25,30 +25,27 @@ const emits = defineEmits<{ close: [] }>()
 </template>
 
 <style scoped>
-.modal-container {
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, .5);
+  transition: all 0.3s ease;
 }
 
 .modal-content {
   margin: auto;
   width: 500px;
   height: 500px;
-}
-
-.modal-enter-active,
-.modal-leave-active {
-  &.modal-container {
-    transition: opacity 0.5s ease;
-  }
+  background: white;
+  z-index: 1000;
 }
 
 .modal-enter-from,
-.moda-leave-to {
-  &.modal-container {
-    opacity: 0;
-  }
+.modal-leave-to {
+  opacity: 0;
 }
 </style>
