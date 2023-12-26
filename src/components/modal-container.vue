@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import SmallButton from '../button/small-button.vue';
+import FlexBox from './parts/box/flex-box.vue';
+
 
 type Props = {
   title: string;
@@ -14,11 +15,10 @@ const emits = defineEmits<{ close: [] }>()
 <template>
   <Teleport to="#modal-overlay">
     <Transition name="modal" mode="out-in">
-      <div v-if="open" class="modal-mask">
-        <div class="modal-content">
+      <div v-if="open" class="modal-mask" @click.self="emits('close')">
+        <FlexBox column class="modal-content">
           <slot></slot>
-          <SmallButton type="submit" @click="emits('close')">close</SmallButton>
-        </div>
+        </FlexBox>
       </div>
     </Transition>
   </Teleport>
@@ -26,9 +26,6 @@ const emits = defineEmits<{ close: [] }>()
 
 <style scoped>
 .modal-mask {
-  position: fixed;
-  top: 0;
-  left: 0;
   display: flex;
   width: 100vw;
   height: 100vh;
@@ -37,14 +34,11 @@ const emits = defineEmits<{ close: [] }>()
 }
 
 .modal-content {
-  margin: auto;
   width: 500px;
   height: 500px;
   background: white;
   z-index: 1000;
-  display: flex;
-  place-content: center;
-  place-items: center;
+  margin: auto;
 }
 
 .modal-enter-from,

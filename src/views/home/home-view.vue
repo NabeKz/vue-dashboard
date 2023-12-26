@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ModalContainer from '@/components/modal/modal-container.vue';
+import ModalContainer from '@/components/modal-container.vue';
 import FlexBox from '@/components/parts/box/flex-box.vue';
 import SmallButton from '@/components/parts/button/small-button.vue';
 import TableContainer from '@/components/parts/table/table-container.vue';
@@ -15,6 +15,9 @@ const onClick = () => {
 <template>
   <FlexBox column>
     home
+    <FlexBox row class="gap-8">
+      <SmallButton type="submit" @click="onClick">新規登録</SmallButton>
+    </FlexBox>
     <TableContainer>
       <template #header>
         <th>name</th>
@@ -25,7 +28,7 @@ const onClick = () => {
         <td>aaa</td>
         <td>bbb</td>
         <td class="buttons">
-          <SmallButton type="submit" @click="onClick">登録</SmallButton>
+          <SmallButton type="submit" @click="onClick">編集</SmallButton>
           <SmallButton type="submit" @click="onClick">削除</SmallButton>
         </td>
       </template>
@@ -33,7 +36,7 @@ const onClick = () => {
   </FlexBox>
 
   <ModalContainer title="aaa" :open="open" @close="open = false">
-    <EditModal />
+    <EditModal @close="open = false" @submit="console.debug" />
   </ModalContainer>
 </template>
 

@@ -1,8 +1,5 @@
-<script lang="ts">
-export default { name: "TheHeader" }
-</script>
 <script setup lang="ts">
-import GoogleFontIcon from '@/components/icons/google-font-icon.vue';
+import GoogleFontIcon from './parts/icons/google-font-icon.vue';
 </script>
 
 <template>

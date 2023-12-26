@@ -67,3 +67,16 @@ li {
 .pt-32 {
   padding-top: 32px;
 }
+
+.gap-8 {
+  gap: 8px;
+}
+.gap-16 {
+  gap: 16px;
+}
+.gap-24 {
+  gap: 24px;
+}
+.gap-32 {
+  gap: 32px;
+}

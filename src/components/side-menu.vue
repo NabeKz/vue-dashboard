@@ -1,8 +1,3 @@
-<script lang="ts">
-export default {
-  name: "SideMenu"
-}
-</script>
 <template>
   <aside class="aside active">
     <ul class="aside_list">

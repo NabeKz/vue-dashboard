@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import TheHeader from './components/header/index.vue'
-import SideMenu from './components/sidemenu/index.vue'
+import TheHeader from './components/the-header.vue'
+import SideMenu from './components/side-menu.vue'
 import TheFooter from './components/the-footer.vue'
 import Main from './components/the-main.vue'
-import ModalOverlay from "./components/modal-overlay.vue"
 </script>
 
 <template>
@@ -14,5 +13,13 @@ import ModalOverlay from "./components/modal-overlay.vue"
     <RouterView />
   </Main>
   <TheFooter />
-  <ModalOverlay />
+  <div id="modal-overlay"></div>
 </template>
+
+<style scoped>
+#modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+</style>
