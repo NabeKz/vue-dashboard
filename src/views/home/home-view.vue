@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import FlexBox from '@/components/box/flex-box.vue';
-import TableContainer from '@/components/table/table-container.vue';
-import SmallButton from '@/components/button/small-button.vue';
 import ModalContainer from '@/components/modal/modal-container.vue';
-import EditModal from './components/edit-modal.vue';
+import FlexBox from '@/components/parts/box/flex-box.vue';
+import SmallButton from '@/components/parts/button/small-button.vue';
+import TableContainer from '@/components/parts/table/table-container.vue';
 import { ref } from 'vue';
+import EditModal from './components/edit-modal.vue';
 
 const open = ref(false)
 const onClick = () => {

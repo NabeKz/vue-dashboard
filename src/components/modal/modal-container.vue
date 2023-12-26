@@ -12,7 +12,7 @@ const emits = defineEmits<{ close: [] }>()
 </script>
 
 <template>
-  <Teleport to="body">
+  <Teleport to="#modal-overlay">
     <Transition name="modal" mode="out-in">
       <div v-if="open" class="modal-mask">
         <div class="modal-content">
