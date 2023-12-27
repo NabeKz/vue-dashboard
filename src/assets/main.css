@@ -11,6 +11,10 @@
     'aside footer';
   height: 100vh;
 
+  &.slim {
+    grid-template-columns: 80px 1fr;
+  }
+
   .aside {
     grid-area: aside;
     background: var(--vt-c-indigo);
