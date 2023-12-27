@@ -12,9 +12,10 @@ defineProps<Props>()
 defineEmits<{ close: [], submit: [model: Model] }>()
 
 type Model = {
-  name: string
+  name: string;
+  title: string;
 }
-const model = ref<Model>({ name: "" })
+const model = ref<Model>({ name: "", title: "" })
 </script>
 
 <template>
@@ -25,7 +26,7 @@ const model = ref<Model>({ name: "" })
     <form @submit.prevent>
       <FlexBox column class="gap-24">
         <TextInput label="name" v-model="model.name" />
-        {{ model.name }}
+        <TextInput label="title" v-model="model.title" />
         <FlexBox row class="buttons gap-24">
           <SmallButton type="submit" @click="$emit('submit', model)">submit</SmallButton>
           <SmallButton type="submit" @click="$emit('close')">close</SmallButton>
