@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-export type Kind = "submit"
+export type Kind = "submit" | "caution"
 
-defineProps<{ kind: Kind }>()
+defineProps<{ kind: Kind, disabled: boolean }>()
 </script>
 
 <template>
-  <button class="button pa-8" :class="kind">
+  <button class="button pa-8" :class="[kind, disabled && 'disabled']">
     <slot></slot>
   </button>
 </template>
@@ -21,6 +21,16 @@ defineProps<{ kind: Kind }>()
 
   &.submit {
     background: steelblue;
+    color: white;
+  }
+
+  &.caution {
+    background: firebrick;
+    color: white;
+  }
+
+  &.disabled {
+    background: gray;
     color: white;
   }
 }
