@@ -1,29 +1,25 @@
 import { computed, ref } from "vue"
-import { close, getMessage, init, register, type State } from "./interact"
+import { close, getMessage, init, send, type State } from "./interact"
 
 export const useWebsocket = (url: string) => {
-  const state = ref<State>({ status: "ready" })
+  const state = ref<State>({ status: "ready", message: "" })
 
   const openWs = () => {
-    if (state.value.ws) return
-
-    init(state.value, url).then((newState) => {
-      register(newState, (s) => {
-        state.value = s
-      })
+    init(state.value, url, (newState) => {
+      console.debug(newState)
+      state.value = newState
     })
   }
 
   const closeWs = () => {
-    if (!state.value.ws) return
     state.value = close(state.value)
   }
 
   const ask = () => {
-    state.value.ws?.send("ask")
+    send(state.value, "ask")
   }
   const bid = () => {
-    state.value.ws?.send("bit")
+    send(state.value, "bid")
   }
 
   const isOpen = computed(() => state.value.status === "start")

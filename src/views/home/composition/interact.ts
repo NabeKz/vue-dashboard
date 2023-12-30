@@ -1,25 +1,21 @@
-export type State =
-  | {
-      status: "ready"
-      ws?: never
-    }
-  | {
-      status: "start"
-      ws: WebSocket
-      message: string
-    }
-
-export const init = async (state: State, url: string) => {
-  if (state.ws) {
-    console.debug("already opened")
-    return state
-  }
-  const ws = new WebSocket(url)
-  register(ws, callback)
-  return
+type Ready = {
+  status: "ready"
+  message: string
 }
+type Start = {
+  status: "start"
+  ws: WebSocket
+  message: string
+}
+export type State = Ready | Start
 
-export const register = (ws: WebSocket, callback: (state: State) => void) => {
+export const init = (state: State, url: string, callback: (newState: State) => void) => {
+  if (state.status !== "ready") {
+    console.debug("already open")
+    return
+  }
+
+  const ws = new WebSocket(url)
   ws.addEventListener("open", () => {
     console.debug("open")
     callback({ status: "start", ws, message: "" })
@@ -33,12 +29,14 @@ export const register = (ws: WebSocket, callback: (state: State) => void) => {
   })
 }
 
-export const close = (state: State): Extract<State, { status: "ready" }> => {
-  if (!state.ws) {
+export const close = (state: State): Ready => {
+  if (state.status === "ready") {
     console.debug("already closed")
   }
-  state.ws?.close()
-  return { status: "ready" }
+  if (state.status !== "ready") {
+    state.ws.close()
+  }
+  return { status: "ready", message: "" }
 }
 
 export const getMessage = (state: State) => {
@@ -47,4 +45,8 @@ export const getMessage = (state: State) => {
 
 export const update = (state: State, values: Partial<State>): State => {
   return Object.assign(state, values)
+}
+
+export const send = (state: State, payload: string): void => {
+  state.status === "start" && state.ws.send(payload)
 }
