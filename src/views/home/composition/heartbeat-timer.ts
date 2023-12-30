@@ -24,7 +24,8 @@ export const HeatBeatTimer = (callback: Callback, options: Options = {}) => {
     setInterval(() => {
       callback.timeIn()
       if (timer.length > 0) return
-      const timerId = setTimeout(() => callback.timeOut(), timeout)
+
+      const timerId = setTimeout(callback.timeOut, timeout)
       timer.push(timerId)
     }, interval)
   }
