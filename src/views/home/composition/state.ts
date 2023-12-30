@@ -8,10 +8,6 @@ export type State =
       explicit: false
     }
   | {
-      status: "connecting"
-      ws: WebSocket
-    }
-  | {
       status: "open"
       ws: WebSocket
     }
@@ -28,11 +24,6 @@ export const toClose = (explicit: boolean) =>
     explicit
   }) as const
 
-export const toConnecting = (ws: WebSocket) =>
-  ({
-    status: "connecting",
-    ws
-  }) as const
 export const toOpen = (ws: WebSocket) =>
   ({
     status: "open",

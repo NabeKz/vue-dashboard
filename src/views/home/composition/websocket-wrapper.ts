@@ -8,10 +8,11 @@ export class WebSocketWrapper {
     return new WebSocketWrapper("close", undefined)
   }
 
-  get isClose() {
+  isClose() {
     return this.state === "close"
   }
-  get isOpen() {
+
+  isOpen() {
     return !this.isClose
   }
 
@@ -29,5 +30,12 @@ export class WebSocketWrapper {
 
   bid() {
     this.ws?.send("bid")
+  }
+
+  toState() {
+    return {
+      isOpen: this.isOpen(),
+      isClose: this.isClose()
+    }
   }
 }

@@ -1,6 +1,6 @@
-import { computed, onMounted, ref, toRefs } from "vue"
+import { computed, onMounted, ref } from "vue"
 import { HeatBeatTimer } from "./heartbeat-timer"
-import { toClose, initState, toConnecting, toOpen } from "./state"
+import { toClose, initState, toOpen } from "./state"
 
 const PING_MESSAGE = "ping"
 const EXPLICIT_CLOSE = 4000
@@ -30,7 +30,7 @@ export const useWebSocket = (url: string, { heartBeat }: Options = { heartBeat: 
 
   // TODO: data defined type
   const _send = (data: string) => {
-    if (state.value.status === "connecting") {
+    if (state.value.status === "open") {
       state.value.ws.send(data)
     }
   }
@@ -42,8 +42,6 @@ export const useWebSocket = (url: string, { heartBeat }: Options = { heartBeat: 
     if (state.value.status === "close" && state.value.explicit) return
 
     const ws = new WebSocket(url)
-    const newState = toConnecting(ws)
-    state.value = newState
 
     ws.onopen = () => {
       state.value = toOpen(ws)
@@ -86,9 +84,7 @@ export const useWebSocket = (url: string, { heartBeat }: Options = { heartBeat: 
   }
 
   const isClose = computed(() => state.value.status === "close")
-  const isOpen = computed(
-    () => state.value.status === "open" || state.value.status === "connecting"
-  )
+  const isOpen = computed(() => state.value.status === "open")
 
   return {
     message: data,
