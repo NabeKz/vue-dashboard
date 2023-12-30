@@ -9,7 +9,7 @@ type Callback = {
 const DEFAULT_INTERVAL = 1000
 const DEFAULT_TIMEOUT = 1000
 
-export const useInterval = (callback: Callback, options: Options = {}) => {
+export const HeatBeatTimer = (callback: Callback, options: Options = {}) => {
   const timer = Array<NodeJS.Timeout>()
 
   const resetTimer = () => {
