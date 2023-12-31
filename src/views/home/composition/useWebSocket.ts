@@ -83,13 +83,16 @@ export const useWebSocket = (url: string, { heartBeat }: Options = { heartBeat: 
     _init()
   }
 
-  const isClose = computed(() => state.value.status === "close")
-  const isOpen = computed(() => state.value.status === "open")
+  const condition = computed(() => {
+    return {
+      isOpen: state.value.status === "open",
+      isClose: state.value.status === "close"
+    }
+  })
 
   return {
     message: data,
-    isOpen,
-    isClose,
+    condition,
     ws: {
       close,
       ask,
