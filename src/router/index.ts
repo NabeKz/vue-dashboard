@@ -7,12 +7,12 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: HomeView
+      component: () => import("@/views/form-sample/form-sample-view.vue")
     },
     {
-      path: "/form-sample",
+      path: "/",
       name: "form-sample",
-      component: () => import("../views/form-sample/form-sample-view.vue")
+      component: () => import("@/views/form-sample/form-sample-view.vue")
     }
   ]
 })

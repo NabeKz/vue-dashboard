@@ -1,7 +1,8 @@
 <script setup lang="ts">
 type Props = {
   label: string;
-  modelValue: string;
+  modelValue: string | undefined;
+  errorMessage?: string
 }
 defineProps<Props>()
 defineEmits<{ 'update:modelValue': [value: string] }>()
@@ -15,10 +16,20 @@ const toValue = (e: Event) => {
 </script>
 
 <template>
-  <div>
+  <div class="input-field">
     <label>{{ label }}</label>
     <input :value=modelValue @input="$emit('update:modelValue', toValue($event))" />
+    <span class="error">{{ errorMessage }}</span>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.input-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  color: red;
+}
+</style>
