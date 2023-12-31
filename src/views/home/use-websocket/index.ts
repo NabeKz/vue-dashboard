@@ -1,40 +1,36 @@
 import { computed, ref } from "vue"
-import { init } from "./functions"
+import { close, init, send } from "./functions"
+import { initState, toTimeOut } from "./state"
 
-export const useWebsocket = (url: string) => {
-  const ws = ref<WebSocket>()
-  const message = ref("")
+const TIME_OUT = 1000
+export const useWebSocket = (url: string) => {
+  const state = ref(initState())
+  const options = { retryCount: 0, force: false }
 
-  const onOpen = (value: WebSocket) => (ws.value = value)
-  const onReceiveMessage = (value: string) => (message.value = value)
-  const onClose = () => (ws.value = undefined)
-
-  const openWs = () => {
-    init(ws.value, url, {
-      onOpen,
-      onReceiveMessage,
-      onClose
-    })
+  const _init = () => {
+    init(state.value, url, options)
+  }
+  const ws = {
+    open: () => _init(),
+    close: () => close(state.value),
+    ask: () => send(state.value, "ask"),
+    bid: () => send(state.value, "bid")
   }
 
-  const closeWs = () => {
-    ws.value?.close()
-  }
-  const ask = () => {
-    ws.value?.send("ask")
-  }
-  const bid = () => {
-    ws.value?.send("bid")
-  }
+  const dto = computed(() => ({
+    isOpen:
+      state.value.status === "open" ||
+      state.value.status === "connecting" ||
+      state.value.status === "closing",
+    isClose: state.value.status === "close" || state.value.status === "closing",
+    isNotOpen: state.value.status !== "open",
+    message: state.value.message
+  }))
 
-  const isOpen = computed(() => ws.value?.readyState === WebSocket["OPEN"])
+  window.addEventListener("beforeunload", ws.close)
 
   return {
-    isOpen,
-    openWs,
-    closeWs,
-    ask,
-    bid,
-    message
+    ws,
+    dto
   }
 }

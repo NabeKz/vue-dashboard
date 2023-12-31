@@ -5,7 +5,7 @@ defineProps<{ kind: Kind, disabled: boolean }>()
 </script>
 
 <template>
-  <button class="button pa-8" :class="[kind, disabled && 'disabled']">
+  <button class="button pa-8" :class="kind" :disabled="disabled">
     <slot></slot>
   </button>
 </template>
@@ -29,7 +29,7 @@ defineProps<{ kind: Kind, disabled: boolean }>()
     color: white;
   }
 
-  &.disabled {
+  &:disabled {
     background: gray;
     color: white;
   }

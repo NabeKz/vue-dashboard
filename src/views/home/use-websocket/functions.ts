@@ -1,46 +1,59 @@
-import { type Callback, type State, type initOption } from "./types"
+import {
+  type State,
+  updateMessage,
+  toClose,
+  toOpen,
+  toConnecting,
+  toCloseOverRetryLimit,
+  toClosing
+} from "./state"
 
-export const CLOSE_NOT_RETRY = 4000
+const RETRY_LIMIT = 3
+const RETRY_INTERVAL = 1 * 1000
+const EXPLICIT_CLOSE = 4000
 
-export const initState = (): State => ({ status: "close" })
-
-export const init = (
-  _ws: WebSocket | undefined,
-  url: string,
-  callback: Callback,
-  option: initOption = { retry: false },
-  count = 0
-) => {
-  if (_ws !== undefined) {
+type Options = {
+  retryCount: number
+  force: boolean
+}
+export const init = (state: State, url: string, options: Options) => {
+  if (state.status === "open" || state.status === "connecting") {
     console.debug("already opened")
+    return
   }
-
   const ws = new WebSocket(url)
-  ws.onopen = () => callback.onOpen(ws)
-  ws.onmessage = ({ data }) => callback.onReceiveMessage(data)
-  ws.onerror = (data) => console.debug(data)
+  toConnecting(state, ws)
+
+  ws.onopen = () => toOpen(state, ws)
+  ws.onmessage = ({ data }) => updateMessage(state, data)
+  ws.onerror = (data) => {
+    console.debug(data)
+  }
   ws.onclose = ({ code }) => {
-    if (!option.retry) {
-      callback.onClose(code)
+    toClosing(state)
+    if (code === EXPLICIT_CLOSE) {
+      toClose(state)
       return
     }
-    if (option.count > count) {
+    if (options.retryCount >= RETRY_LIMIT) {
+      toCloseOverRetryLimit(state)
       return
     }
-    setTimeout(() => init(undefined, url, callback, option, count + 1), 1000)
+    options.retryCount++
+    const _init = () => init(state, url, options)
+    setTimeout(_init, RETRY_INTERVAL)
   }
 }
 
-export const close = (state: State): State => {
+export const close = (state: State) => {
   if (state.status === "close") {
     console.debug("already closed")
   }
-  if (state.status === "open") {
-    state.ws.close(CLOSE_NOT_RETRY)
+  if (state.status === "connecting" || state.status === "open") {
+    state.ws.close(EXPLICIT_CLOSE)
   }
-  return { status: "close" }
 }
-
-export const send = (state: State, payload: string): void => {
+// TODO: parse payload
+export const send = (state: State, payload: string) => {
   state.status === "open" && state.ws.send(payload)
 }

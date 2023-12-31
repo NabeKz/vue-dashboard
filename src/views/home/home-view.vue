@@ -5,14 +5,14 @@ import SmallButton from '@/components/parts/button/small-button.vue';
 import TableContainer from '@/components/parts/table/table-container.vue';
 import { ref } from 'vue';
 import EditModal from './components/edit-modal.vue';
-import { useWebSocket } from './composition/useWebSocket'
+import { useWebSocket } from './use-websocket'
 
 const open = ref(false)
 const onClick = () => {
   open.value = !open.value
 }
 
-const { message, condition, ws, } = useWebSocket("wss://echo.websocket.org")
+const { dto, ws, } = useWebSocket("wss://echo.websocket.or")
 </script>
 
 <template>
@@ -20,14 +20,14 @@ const { message, condition, ws, } = useWebSocket("wss://echo.websocket.org")
     home
     <FlexBox column class="gap-8">
       <FlexBox row class="gap-8">
-        <SmallButton type="submit" :disabled="condition.isOpen" @click="ws.open">open</SmallButton>
-        <SmallButton type="submit" :disabled="condition.isClose" @click="ws.close">close</SmallButton>
+        <SmallButton type="submit" :disabled="dto.isOpen" @click="ws.open">open</SmallButton>
+        <SmallButton type="submit" :disabled="dto.isClose" @click="ws.close">close</SmallButton>
       </FlexBox>
       <FlexBox row class="gap-8">
-        <SmallButton type="caution" :disabled="condition.isClose" @click="ws.ask">ask</SmallButton>
-        <SmallButton type="submit" :disabled="condition.isClose" @click="ws.bid">bit</SmallButton>
+        <SmallButton type="caution" :disabled="dto.isNotOpen" @click="ws.ask">ask</SmallButton>
+        <SmallButton type="submit" :disabled="dto.isNotOpen" @click="ws.bid">bit</SmallButton>
       </FlexBox>
-      message: {{ message }}
+      message: {{ dto.message }}
       <FlexBox row class="gap-8">
         <SmallButton type="submit" @click="onClick">新規登録</SmallButton>
       </FlexBox>
