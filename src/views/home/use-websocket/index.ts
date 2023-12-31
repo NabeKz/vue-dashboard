@@ -7,15 +7,14 @@ export const useWebSocket = (url: string) => {
 
   const ws = {
     open: () => init(state.value, url),
-    // close: () => close(state.value),
-    close: () => state.value.status === "open" && state.value.ws.close(),
+    close: () => close(state.value),
     ask: () => send(state.value, "ask"),
     bid: () => send(state.value, "bid")
   }
 
   const dto = computed(() => ({
-    disabledOpen: state.value.status === "open" || state.value.status === "closing",
-    disabledClose: state.value.status === "close" || state.value.status === "closing",
+    disabledOpen: state.value.status === "open",
+    disabledClose: state.value.status === "close",
     message: state.value.message
   }))
 

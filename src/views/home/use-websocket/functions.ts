@@ -1,12 +1,4 @@
-import {
-  toClose,
-  toCloseOverRetryLimit,
-  toClosing,
-  toOpen,
-  toTimeOut,
-  updateMessage,
-  type State
-} from "./state"
+import { toOpen, type State, toClose } from "./state"
 
 const RETRY_LIMIT = 3
 const RETRY_INTERVAL = 1 * 1000
@@ -15,12 +7,15 @@ const OPEN_TIME_OUT = 1000
 
 type Options = {
   retryCount: number
+  timeout: boolean
   timer: NodeJS.Timeout[]
 }
 
-const setTimer = (state: State, options: Options) => {
+const Options = (): Options => ({ retryCount: 0, timeout: false, timer: [] })
+
+const setTimer = (status: State["status"], options: Options) => {
   const timeoutId = setTimeout(() => {
-    state.status !== "open" && toTimeOut(state)
+    status !== "open" && (options.timeout = true)
   }, OPEN_TIME_OUT)
   options.timer.push(timeoutId)
 }
@@ -30,45 +25,28 @@ const clearTimer = (options: Options) => {
   clearTimeout(timeoutId)
 }
 
-export const init = (
-  state: State,
-  url: string,
-  options: Options = { retryCount: 0, timer: [] }
-) => {
-  setTimer(state, options)
+const _init = (state: State, url: string, options = Options()) => {
+  console.debug("connect: ", new Date().toISOString())
+  if (state.status === "open") return
 
-  if (state.status === "open") {
-    console.debug("already opened")
-    return
-  }
-  if (state.status === "closing" && state.timeout) {
-    toClose(state)
-    return
-  }
+  setTimer(state.status, options)
+
   const ws = new WebSocket(url)
-  state.message = "connecting"
+  ws.onopen = () => (toOpen(state, ws), clearTimer(options))
+  ws.onmessage = ({ data }) => (state.message = data)
+  // ws.onerror = (data) => console.debug(data)
+  ws.onclose = ({ code, reason }) => {
+    console.debug("code: ", code, " reason: ", reason)
+    if (code === EXPLICIT_CLOSE) return toClose(state)
+    if (options.retryCount >= RETRY_LIMIT) return toClose(state, "over retry limit")
 
-  ws.onopen = () => {
-    clearTimer(options)
-    toOpen(state, ws)
-  }
-  ws.onmessage = ({ data }) => updateMessage(state, data)
-  ws.onerror = (data) => console.debug(data)
-  ws.onclose = ({ code }) => {
-    toClosing(state, false)
-    if (code === EXPLICIT_CLOSE) {
-      toClose(state)
-      return
-    }
-    state.message = "connection retry"
-    if (options.retryCount >= RETRY_LIMIT) {
-      toCloseOverRetryLimit(state)
-      return
-    }
     options.retryCount++
-    const _init = () => init(state, url, options)
-    setTimeout(_init, RETRY_INTERVAL)
+    setTimeout(() => _init(state, url, options), RETRY_INTERVAL)
   }
+}
+
+export const init = (state: State, url: string) => {
+  _init(state, url)
 }
 
 export const close = (state: State) => {
