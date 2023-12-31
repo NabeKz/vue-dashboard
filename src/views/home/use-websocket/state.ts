@@ -1,5 +1,14 @@
 type Close = {
   status: "close"
+  explicit: boolean
+  ws?: never
+  message: string
+}
+
+type Connecting = {
+  status: "connecting"
+  explicit: false
+  ws?: never
   message: string
 }
 
@@ -9,18 +18,37 @@ type Open = {
   ws: WebSocket
 }
 
-export type State = Close | Open
+export type State = Close | Open | Connecting
 
-export const initState = (): State => ({ status: "close", message: "" })
+export const initState = (): State => ({ status: "close", message: "", explicit: false })
 
-const update = (prev: State, current: State) => Object.assign(prev, current)
+export const toConnecting = (): State => ({
+  status: "connecting",
+  explicit: false,
+  message: "connecting"
+})
 
-export const toOpen = (state: State, ws: WebSocket): State =>
-  update(state, { status: "open", ws, message: state.message || "open" })
+export const toOpen = (state: Exclude<State, Open>, ws: WebSocket): State => ({
+  status: "open",
+  ws,
+  message: state.message || "open"
+})
 
-export const toClose = (state: State, message?: string): State =>
-  update(state, { status: "close", message: message ?? state.message })
+export const updateMessage = (state: State, message: string): State => ({
+  ...state,
+  message
+})
 
-export const CLOSE_MESSAGE = {
-  overRetries: "over retry limit"
-}
+export const toClose = (state: State, message?: CLOSE_MESSAGE): State => ({
+  status: "close",
+  explicit: true,
+  message: message ?? state.message
+})
+
+const CLOSE_MESSAGE = {
+  explicitClose: "explicit close",
+  overRetries: "over retry limit",
+  timeout: "timeout"
+} as const
+
+type CLOSE_MESSAGE = (typeof CLOSE_MESSAGE)[keyof typeof CLOSE_MESSAGE]
