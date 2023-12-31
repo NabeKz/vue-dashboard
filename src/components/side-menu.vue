@@ -10,16 +10,29 @@ const toggle = () => {
   slim.value = !slim.value
 }
 </script>
+
 <template>
   <aside class="aside" :class="{ slim }">
     <FlexBox row class="menu-icon-wrapper">
       <GoogleFontIcon @click="toggle" class="menu-icon">menu</GoogleFontIcon>
     </FlexBox>
     <ul class="aside_list">
-      <li class="aside_list-item">item</li>
-      <li class="aside_list-item">item</li>
-      <li class="aside_list-item">item</li>
-      <li class="aside_list-item">item</li>
+      <li class="aside_list-item">
+        <RouterLink :to="{ name: 'form-sample' }">
+          <div class="block">form-sample</div>
+        </RouterLink>
+      </li>
+      <li class="aside_list-item">
+        <RouterLink :to="{ name: 'home' }">
+          <div class="block">root</div>
+        </RouterLink>
+      </li>
+      <li class="aside_list-item">
+        <div class="block">item</div>
+      </li>
+      <li class="aside_list-item">
+        <div class="block">item</div>
+      </li>
     </ul>
   </aside>
 </template>
@@ -51,11 +64,20 @@ const toggle = () => {
 
 .aside_list-item {
   color: var(--vt-c-white-soft);
-  padding: 20px;
 
   &:hover {
     background: royalblue;
     cursor: pointer;
   }
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.block {
+  display: block;
+  padding: 20px;
 }
 </style>
