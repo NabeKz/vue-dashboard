@@ -12,7 +12,7 @@ const onClick = () => {
   open.value = !open.value
 }
 
-const { dto, ws, } = useWebSocket("wss://echo.websocket.or")
+const { dto, ws, } = useWebSocket("wss://echo.websocket.org")
 </script>
 
 <template>
@@ -20,12 +20,12 @@ const { dto, ws, } = useWebSocket("wss://echo.websocket.or")
     home
     <FlexBox column class="gap-8">
       <FlexBox row class="gap-8">
-        <SmallButton type="submit" :disabled="dto.isOpen" @click="ws.open">open</SmallButton>
-        <SmallButton type="submit" :disabled="dto.isClose" @click="ws.close">close</SmallButton>
+        <SmallButton type="submit" :disabled="dto.disabledOpen" @click="ws.open">open</SmallButton>
+        <SmallButton type="submit" :disabled="dto.disabledClose" @click="ws.close">close</SmallButton>
       </FlexBox>
       <FlexBox row class="gap-8">
-        <SmallButton type="caution" :disabled="dto.isNotOpen" @click="ws.ask">ask</SmallButton>
-        <SmallButton type="submit" :disabled="dto.isNotOpen" @click="ws.bid">bit</SmallButton>
+        <SmallButton type="caution" :disabled="dto.disabledClose" @click="ws.ask">ask</SmallButton>
+        <SmallButton type="submit" :disabled="dto.disabledClose" @click="ws.bid">bit</SmallButton>
       </FlexBox>
       message: {{ dto.message }}
       <FlexBox row class="gap-8">
