@@ -32,7 +32,7 @@ export class WebSocketWrapper {
     this.ws?.send("bid")
   }
 
-  toState() {
+  toDto() {
     return {
       isOpen: this.isOpen(),
       isClose: this.isClose()

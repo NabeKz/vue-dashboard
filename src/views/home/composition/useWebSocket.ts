@@ -80,6 +80,7 @@ export const useWebSocket = (url: string, { heartBeat }: Options = { heartBeat: 
 
   const open = () => {
     close()
+    state.value = initState()
     _init()
   }
 
