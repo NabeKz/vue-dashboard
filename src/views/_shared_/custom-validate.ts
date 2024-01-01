@@ -1,4 +1,4 @@
-import { ZodString, z } from "zod"
+import { ZodString, z as zod, type TypeOf } from "zod"
 
 class ZodStringWrapper {
   constructor(private _value: ZodString) {}
@@ -14,7 +14,7 @@ class ZodStringWrapper {
 
 const factory = (required: boolean) => {
   const required_error = required ? "必須項目です" : ""
-  const value = z.string({ required_error })
+  const value = zod.string({ required_error })
   return required ? value.min(1, required_error) : value
 }
 
@@ -23,4 +23,7 @@ const string = ({ required }: { required: boolean }) => {
   return new ZodStringWrapper(value)
 }
 
-export default { string, object: z.object }
+const _enum = () => zod.enum
+
+export { type TypeOf }
+export const z = { string, object: zod.object, enum: zod.enum }

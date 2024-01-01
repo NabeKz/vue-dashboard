@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import FlexBox from "@/components/parts/box/flex-box.vue";
 import TextInput from "@/components/parts/form/text-input.vue";
-import { useCustomForm } from "@/views/_shared_/use-custom-form";
-import { schema } from "./schema";
+import { useMyForm } from "./form";
+import SelectBox from "@/components/parts/form/select-box.vue";
 
-const { handleSubmit, defineField, errors } = useCustomForm(schema)
-const [email] = defineField("email")
+const { email, item, handleSubmit, errors } = useMyForm()
+const items = [
+  { label: "a", value: "a" },
+  { label: "b", value: "b" },
+  { label: "c", value: "c" },
+]
 const onSubmit = handleSubmit(values => {
   console.debug(values)
 })
@@ -14,9 +18,11 @@ const onSubmit = handleSubmit(values => {
 <template>
   <FlexBox column>
     <h1>form-sample</h1>
-    <form @submit.prevent @submit="onSubmit">
-      <TextInput label="メール" v-model="email" :errorMessage="errors.email" />
-      <button>submit</button>
+    <form @submit.prevent @submit="console.debug($event.target)">
+      {{ errors }}
+      <TextInput label="メール" v-model="email" :error-message="errors.email" />
+      <SelectBox :items="items" v-model="item" />
+      <button type="button" @click="onSubmit">submit</button>
     </form>
   </FlexBox>
 </template>

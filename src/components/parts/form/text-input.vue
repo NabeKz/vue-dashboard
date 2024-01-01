@@ -2,7 +2,7 @@
 type Props = {
   label: string;
   modelValue: string | undefined;
-  errorMessage?: string
+  errorMessage: string | undefined
 }
 defineProps<Props>()
 defineEmits<{ 'update:modelValue': [value: string] }>()
