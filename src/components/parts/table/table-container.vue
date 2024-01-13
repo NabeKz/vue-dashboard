@@ -1,7 +1,5 @@
-<script setup lang="ts">
-import { onMounted, useSlots } from 'vue';
-
-const { header } = useSlots()
+<script setup lang="ts" generic="T extends { id: string | number}">
+defineProps<{ items: T[] }>()
 </script>
 
 <template>
@@ -12,9 +10,11 @@ const { header } = useSlots()
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <slot name="record"></slot>
-      </tr>
+      <template v-for="item in items" :key="item.id">
+        <tr>
+          <slot name="item" v-bind="item"></slot>
+        </tr>
+      </template>
     </tbody>
   </table>
 </template>

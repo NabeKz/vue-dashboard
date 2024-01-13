@@ -1,5 +1,9 @@
+import { AnnouncementRepositoryOnMemory } from "@/views/home/repository"
 import { createRouter, createWebHistory } from "vue-router"
-import HomeView from "@/views/home/home-view.vue"
+
+const Repositories = {
+  announcement: new AnnouncementRepositoryOnMemory()
+} as const
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +11,8 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: () => import("@/views/form-sample/form-sample-view.vue")
+      props: { repository: Repositories.announcement },
+      component: () => import("@/views/home/home-view.vue")
     },
     {
       path: "/",

@@ -9,6 +9,10 @@ const toggle = () => {
   el?.classList.toggle("slim")
   slim.value = !slim.value
 }
+const routes = [
+  { name: "home" },
+  { name: "form-sample" },
+]
 </script>
 
 <template>
@@ -17,22 +21,13 @@ const toggle = () => {
       <GoogleFontIcon @click="toggle" class="menu-icon">menu</GoogleFontIcon>
     </FlexBox>
     <ul class="aside_list">
-      <li class="aside_list-item">
-        <RouterLink :to="{ name: 'form-sample' }">
-          <div class="block">form-sample</div>
-        </RouterLink>
-      </li>
-      <li class="aside_list-item">
-        <RouterLink :to="{ name: 'home' }">
-          <div class="block">root</div>
-        </RouterLink>
-      </li>
-      <li class="aside_list-item">
-        <div class="block">item</div>
-      </li>
-      <li class="aside_list-item">
-        <div class="block">item</div>
-      </li>
+      <template v-for="route in routes" :key="route.name">
+        <li class="aside_list-item">
+          <RouterLink :to="{ name: route.name }">
+            <div class="block">{{ route.name }}</div>
+          </RouterLink>
+        </li>
+      </template>
     </ul>
   </aside>
 </template>

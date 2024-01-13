@@ -5,14 +5,18 @@ import SmallButton from '@/components/parts/button/small-button.vue';
 import TableContainer from '@/components/parts/table/table-container.vue';
 import { ref } from 'vue';
 import EditModal from './components/edit-modal.vue';
-import { useWebSocket } from './use-websocket'
+import type { AnnouncementRepository } from './repository';
+import { useAnnouncement } from './use-announcement';
+import SpaceBox from '@/components/parts/box/space-box.vue';
 
+const props = defineProps<{ repository: AnnouncementRepository }>()
 const open = ref(false)
-const onClick = () => {
-  open.value = !open.value
+const onClick = () => open.value = !open.value
+const handleAddAnnouncement = () => {
+  const form = { title: "test", content: "aaaa" }
+  addAnnouncement(form)
 }
-
-const { dto, ws, } = useWebSocket("wss://echo.websocket.org")
+const { addAnnouncement, announcementList } = useAnnouncement(props.repository)
 </script>
 
 <template>
@@ -20,30 +24,23 @@ const { dto, ws, } = useWebSocket("wss://echo.websocket.org")
     home
     <FlexBox column class="gap-8">
       <FlexBox row class="gap-8">
-        <SmallButton type="submit" :disabled="dto.disabledOpen" @click="ws.open">open</SmallButton>
-        <SmallButton type="submit" :disabled="dto.disabledClose" @click="ws.close">close</SmallButton>
-      </FlexBox>
-      <FlexBox row class="gap-8">
-        <SmallButton type="caution" :disabled="dto.disabledClose" @click="ws.ask">ask</SmallButton>
-        <SmallButton type="submit" :disabled="dto.disabledClose" @click="ws.bid">bit</SmallButton>
-      </FlexBox>
-      message: {{ dto.message }}
-      <FlexBox row class="gap-8">
-        <SmallButton type="submit" @click="onClick">新規登録</SmallButton>
+        <SmallButton type="submit" @click="handleAddAnnouncement">新規登録</SmallButton>
       </FlexBox>
     </FlexBox>
-    <TableContainer>
+    <SpaceBox h="10px" />
+    <TableContainer :items="announcementList">
       <template #header>
-        <th>name</th>
+        <th class="narrow">id</th>
         <th>title</th>
+        <th>content</th>
         <th colspan="2"></th>
       </template>
-      <template #record>
-        <td>aaa</td>
-        <td>bbb</td>
-        <td class="buttons">
+      <template #item="item">
+        <td>{{ item.id }}</td>
+        <td>{{ item.title }}</td>
+        <td>{{ item.content }}</td>
+        <td>
           <SmallButton type="submit" @click="onClick">編集</SmallButton>
-          <SmallButton type="submit" @click="onClick">削除</SmallButton>
         </td>
       </template>
     </TableContainer>
@@ -55,8 +52,12 @@ const { dto, ws, } = useWebSocket("wss://echo.websocket.org")
 </template>
 
 <style scoped>
-.buttons {
+.narrow {
+  max-width: 50px;
+}
+
+buttons {
   display: flex;
   gap: 8px;
 }
-</style>./use-websocket./use-websocket/use-websocket
+</style>

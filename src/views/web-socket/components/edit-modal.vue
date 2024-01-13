@@ -25,8 +25,8 @@ const model = ref<Model>({ name: "", title: "" })
     </header>
     <form @submit.prevent>
       <FlexBox column class="gap-24">
-        <TextInput label="name" v-model="model.name" :error-message="''" />
-        <TextInput label="title" v-model="model.title" :error-message="''" />
+        <TextInput label="name" v-model="model.name" />
+        <TextInput label="title" v-model="model.title" />
         <FlexBox row class="buttons gap-24">
           <SmallButton type="submit" @click="$emit('submit', model)">submit</SmallButton>
           <SmallButton type="submit" @click="$emit('close')">close</SmallButton>
