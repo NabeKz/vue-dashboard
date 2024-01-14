@@ -7,6 +7,7 @@ import { ref } from 'vue';
 import EditModal from './components/edit-modal.vue';
 import type { AnnouncementRepository } from './repository';
 import { useAnnouncement } from './use-announcement';
+import { useAnnouncementForm } from './use-announcement-form';
 import SpaceBox from '@/components/parts/box/space-box.vue';
 
 const props = defineProps<{ repository: AnnouncementRepository }>()
