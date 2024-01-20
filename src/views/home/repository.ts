@@ -4,7 +4,7 @@ export type Announcement = {
   title: string
   content: string
 }
-export type AnnouncementWithId = WithId<Announcement>
+export type AnnouncementWithId = Announcement & { id: number }
 
 export interface AnnouncementRepository {
   list(): Promise<WithId<Announcement>[]>

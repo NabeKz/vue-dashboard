@@ -3,15 +3,17 @@ import FlexBox from "@/components/parts/box/flex-box.vue";
 import SmallButton from "@/components/parts/button/small-button.vue";
 import TextInput from "@/components/parts/form/text-input.vue";
 import { useAnnouncementForm } from "../use-announcement-form";
+import type { Announcement } from "../repository";
 
 type Props = {
   onSubmit: () => void;
   onClose: () => void;
 }
 defineProps<Props>()
-defineEmits<{ close: [], submit: [] }>()
+const emits = defineEmits<{ close: [], submit: [model: Announcement] }>()
 
-const { title, content, } = useAnnouncementForm()
+const { title, content, handleSubmit } = useAnnouncementForm()
+const onClickSubmit = () => handleSubmit(form => emits("submit", form))
 </script>
 
 <template>
@@ -24,7 +26,7 @@ const { title, content, } = useAnnouncementForm()
         <TextInput label="title" v-model="title" :error-message="''" />
         <TextInput label="content" v-model="content" :error-message="''" />
         <FlexBox row class="buttons gap-24">
-          <SmallButton type="submit" @click="$emit('submit')">submit</SmallButton>
+          <SmallButton type="submit" @click="onClickSubmit">submit</SmallButton>
           <SmallButton type="submit" @click="$emit('close')">close</SmallButton>
         </FlexBox>
       </FlexBox>

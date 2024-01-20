@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import ModalContainer from '@/components/modal-container.vue';
 import FlexBox from '@/components/parts/box/flex-box.vue';
+import SpaceBox from '@/components/parts/box/space-box.vue';
 import SmallButton from '@/components/parts/button/small-button.vue';
 import TableContainer from '@/components/parts/table/table-container.vue';
 import { ref } from 'vue';
+import AddModal from './components/add-modal.vue';
 import EditModal from './components/edit-modal.vue';
 import type { AnnouncementRepository } from './repository';
 import { useAnnouncement } from './use-announcement';
-import { useAnnouncementForm } from './use-announcement-form';
-import SpaceBox from '@/components/parts/box/space-box.vue';
 
 const props = defineProps<{ repository: AnnouncementRepository }>()
 const open = ref(false)
@@ -47,6 +47,9 @@ const { addAnnouncement, announcementList } = useAnnouncement(props.repository)
     </TableContainer>
   </FlexBox>
 
+  <ModalContainer title="aaa" :open="open" @close="open = false">
+    <AddModal @close="open = false" @submit="console.debug" />
+  </ModalContainer>
   <ModalContainer title="aaa" :open="open" @close="open = false">
     <EditModal @close="open = false" @submit="console.debug" />
   </ModalContainer>
