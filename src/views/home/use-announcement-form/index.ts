@@ -1,8 +1,8 @@
+import { useCustomForm } from "@/views/_shared_/use-custom-form"
 import { schema } from "../schema"
-import { useFormWrapper } from "../use-form-wrapper"
 
 export const useAnnouncementForm = () => {
-  const { defineField, handleSubmit, errors } = useFormWrapper(schema, { title: "", content: "" })
+  const { defineField, handleSubmit, errors } = useCustomForm(schema)
   const [title] = defineField("title")
   const [content] = defineField("content")
 
@@ -10,6 +10,6 @@ export const useAnnouncementForm = () => {
     title,
     content,
     handleSubmit,
-    errors
+    errors,
   }
 }

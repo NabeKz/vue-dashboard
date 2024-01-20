@@ -1,17 +1,18 @@
 import { toTypedSchema } from "@vee-validate/zod"
-import { useForm as _useForm } from "vee-validate"
+import { useForm } from "vee-validate"
 import type { TypeOf, ZodObject, ZodRawShape } from "zod"
 
 type Schema<T extends ZodObject<ZodRawShape>> = TypeOf<T>
 
-export const useCustomForm = <T extends ZodObject<ZodRawShape>>(schema: T) => {
-  const { handleSubmit, errors, defineField } = _useForm<Schema<T>>({
-    validationSchema: toTypedSchema(schema)
+export const useCustomForm = <T extends ZodObject<ZodRawShape>>(schema: T, init?: T) => {
+  const { handleSubmit, errors, defineField } = useForm<Schema<T>>({
+    validationSchema: toTypedSchema(schema),
+    initialValues: init as any,
   })
 
   return {
     handleSubmit,
     errors,
-    defineField
+    defineField,
   }
 }

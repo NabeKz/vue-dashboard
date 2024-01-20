@@ -1,8 +1,7 @@
-import * as z from "./schema-helper"
+import { z } from "@/views/_shared_/custom-validate"
 
 export const schema = z.object({
-  title: z.required(),
-  content: z.required()
+  title: z.string().value,
+  content: z.string().value,
+  hoge: z.enum(["a"]),
 })
-
-export type Schema = z.ZodSchema<typeof schema>
