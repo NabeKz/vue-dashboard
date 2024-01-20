@@ -7,14 +7,14 @@ import { ref } from "vue";
 type Props = {
   onSubmit: (model: Model) => void;
   onClose: () => void;
-}
+};
 defineProps<Props>()
 defineEmits<{ close: [], submit: [model: Model] }>()
 
 type Model = {
   name: string;
   title: string;
-}
+};
 const model = ref<Model>({ name: "", title: "" })
 </script>
 

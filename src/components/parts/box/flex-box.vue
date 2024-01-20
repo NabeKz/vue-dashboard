@@ -1,6 +1,4 @@
-<script lang="ts">
-import { h, type FunctionalComponent } from 'vue';
-
+<script lang="ts" setup>
 type Props = {
   row: true;
   column?: never;
@@ -8,15 +6,14 @@ type Props = {
   row?: never;
   column: true
 }
-
-const FlexBox: FunctionalComponent<Props> = (props, ctx) => {
-  const direction = Object.entries(props).filter(([, v]) => v !== undefined)
-  return h("div", { class: ["flex-box", direction] }, ctx.slots)
-}
-
-FlexBox.props = ["row", "column"]
-export default FlexBox
+defineProps<Props>();
 </script>
+
+<template>
+  <div class="flex-box" :class="{ row, column }">
+    <slot></slot>
+  </div>
+</template>
 
 <style scoped>
 .flex-box {
