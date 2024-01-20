@@ -6,7 +6,7 @@ import SmallButton from '@/components/parts/button/small-button.vue';
 import TableContainer from '@/components/parts/table/table-container.vue';
 import { ref } from 'vue';
 import { AddModal } from './components/add-modal';
-import EditModal from './components/edit-modal.vue';
+import { EditModal } from './components/edit-modal';
 import type { AnnouncementRepository } from './repository';
 import { useAnnouncement } from './use-announcement';
 
@@ -51,9 +51,9 @@ const { addAnnouncement, announcementList } = useAnnouncement(props.repository)
   <ModalContainer title="aaa" :open="open" @close="open = false">
     <AddModal @close="open = false" @submit="console.debug" />
   </ModalContainer>
-  <!-- <ModalContainer title="aaa" :open="open" @close="open = false">
+  <ModalContainer title="aaa" :open="open" @close="open = false">
     <EditModal @close="open = false" @submit="console.debug" />
-  </ModalContainer> -->
+  </ModalContainer>
 </template>
 
 <style scoped>

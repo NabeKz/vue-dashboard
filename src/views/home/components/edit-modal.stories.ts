@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3"
 import { within, userEvent, expect } from "@storybook/test"
-import EditModal from "./edit-modal.vue"
+import { EditModal } from "./edit-modal"
 
 const meta = {
   title: "Home/EditModal",
