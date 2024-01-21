@@ -46,7 +46,6 @@ const { addAnnouncement, announcementList } = useAnnouncement(props.repository)
       </template>
     </TableContainer>
   </FlexBox>
-  <HogeModal></HogeModal>
 
   <ModalContainer title="aaa" :open="open" @close="open = false">
     <AddModal @close="open = false" @submit="console.debug" />

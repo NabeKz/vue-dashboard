@@ -2,8 +2,8 @@ import { z } from "@/views/_shared_/custom-validate"
 import { useCustomForm } from "@/views/_shared_/use-custom-form"
 
 const schema = z.object({
-  email: z.string({ required: true }).max(2).value,
-  item: z.string({ required: false }).value
+  email: z.string().max(2).value,
+  item: z.string().value,
 })
 
 export const useMyForm = () => {
@@ -16,6 +16,6 @@ export const useMyForm = () => {
     email,
     item,
     handleSubmit,
-    errors
+    errors,
   }
 }
