@@ -1,17 +1,22 @@
-import { ZodString, z as zod } from "zod"
-import { CustomString } from "./custom-validate/custom-string"
+import { ZodString, z as zod } from "zod";
+import { CustomString } from "./custom-validate/custom-string";
+import type { CustomValidate } from "./interface";
 
-const makeShape = <T extends Record<string, CustomString>>(record: T) => {
-  return Object.entries(record).reduce(
+const pipe = () => {};
+
+const required = () => CustomString.required();
+const optional = () => CustomString.optional();
+
+const object = <T extends Record<string, CustomValidate>>(record: T) => {
+  const fields = Object.entries(record).reduce(
     (acc, [k, v]) => ({ ...acc, [k]: v.value }),
     {} as Record<keyof T, ZodString>,
-  )
-}
-
-const string = () => CustomString.required()
+  );
+  return zod.object(fields);
+};
 
 export const z = {
-  object: zod.object,
-  string,
+  object,
+  string: { required, optional },
   enum: zod.enum,
-}
+};
