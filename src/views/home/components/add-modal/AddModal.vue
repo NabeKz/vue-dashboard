@@ -18,8 +18,8 @@ const onClickSubmit = () => handleSubmit(form => emits("submit", form))
     </header>
     <form @submit.prevent>
       <FlexBox class="column" gap="24">
-        <text-input label="title" v-model="title" :error-message="errors.title" />
-        <text-input label="content" v-model="content" :error-message="errors.content" />
+        <TextInput label="title" v-model="title" :error-message="errors.title" />
+        <TextInput label="content" v-model="content" :error-message="errors.content" />
         <FlexBox class="row buttons" gap="24">
           <TheButton kind="submit" @click="onClickSubmit">submit</TheButton>
           <TheButton kind="submit" @click="$emit('close')">close</TheButton>

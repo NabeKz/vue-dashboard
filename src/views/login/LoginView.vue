@@ -23,8 +23,8 @@ const { email, password, errors, handleLogin } = useLogin({ onSuccess, onFailure
     </div>
     <h1>Sign in to App</h1>
     <form @submit.prevent>
-      <text-input label="email" v-model="email" :error-message="errors.email" autocomplete="off" />
-      <text-input type="password" label="password" v-model="password" :error-message="errors.password"
+      <TextInput label="email" v-model="email" :error-message="errors.email" autocomplete="off" />
+      <TextInput type="password" label="password" v-model="password" :error-message="errors.password"
         autocomplete="off" />
       <TheButton kind="submit" @click="handleLogin">保存</TheButton>
     </form>
