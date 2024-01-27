@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import FlexBox from "@/components/parts/box/flex-box.vue";
-import SmallButton from "@/components/parts/button/small-button.vue";
+import { FlexBox } from "@/components/parts/box";
+import { TheButton } from "@/components/parts/button";
 import { ref } from "vue";
 import { useWebSocket } from "./use-websocket";
 
@@ -13,20 +13,20 @@ const { dto, ws, } = useWebSocket("wss://echo.websocket.org")
 </script>
 
 <template>
-  <FlexBox column>
+  <FlexBox class="column">
     home
-    <FlexBox column class="gap-8">
-      <FlexBox row class="gap-8">
-        <SmallButton type="submit" :disabled="dto.disabledOpen" @click="ws.open">open</SmallButton>
-        <SmallButton type="submit" :disabled="dto.disabledClose" @click="ws.close">close</SmallButton>
+    <FlexBox class="column">
+      <FlexBox class="row">
+        <TheButton kind="submit" :disabled="dto.disabledOpen" @click="ws.open">open</TheButton>
+        <TheButton kind="submit" :disabled="dto.disabledClose" @click="ws.close">close</TheButton>
       </FlexBox>
-      <FlexBox row class="gap-8">
-        <SmallButton type="caution" :disabled="dto.disabledClose" @click="ws.ask">ask</SmallButton>
-        <SmallButton type="submit" :disabled="dto.disabledClose" @click="ws.bid">bit</SmallButton>
+      <FlexBox class="row">
+        <TheButton kind="caution" :disabled="dto.disabledClose" @click="ws.ask">ask</TheButton>
+        <TheButton kind="submit" :disabled="dto.disabledClose" @click="ws.bid">bit</TheButton>
       </FlexBox>
       message: {{ dto.message }}
-      <FlexBox row class="gap-8">
-        <SmallButton type="submit" @click="onClick">新規登録</SmallButton>
+      <FlexBox class="row">
+        <TheButton kind="submit" @click="onClick">新規登録</TheButton>
       </FlexBox>
     </FlexBox>
   </FlexBox>

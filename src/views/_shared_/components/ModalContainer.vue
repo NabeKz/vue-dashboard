@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import FlexBox from "./parts/box/flex-box.vue";
+import { FlexBox } from "@/components/parts/box";
 
 
 type Props = {
@@ -16,7 +16,7 @@ const emits = defineEmits<{ close: [] }>()
   <Teleport to="#modal-overlay">
     <Transition name="modal" mode="out-in">
       <div v-if="open" class="modal-mask" @click.self="emits('close')">
-        <FlexBox column class="modal-content">
+        <FlexBox class="column modal-content">
           <slot></slot>
         </FlexBox>
       </div>

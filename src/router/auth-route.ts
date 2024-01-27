@@ -12,7 +12,7 @@ const routes = [
     path: "",
     name: "home",
     props: { repository: Repositories.announcement },
-    component: () => import("@/views/home/home-view.vue"),
+    component: () => import("@/views/home/HomeView.vue"),
   },
   {
     path: "form-sample",
