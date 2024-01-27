@@ -17,7 +17,7 @@ const routes = [
   {
     path: "form-sample",
     name: "form-sample",
-    component: () => import("@/views/form-sample/form-sample-view.vue"),
+    component: () => import("@/views/form-sample/FormSampleView.vue"),
   },
 ]
 

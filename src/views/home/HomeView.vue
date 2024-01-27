@@ -8,7 +8,6 @@ import { AddModal } from "./components/add-modal";
 import { EditModal } from "./components/edit-modal";
 import type { AnnouncementRepository } from "./repository";
 import { useAnnouncement } from "./use-announcement";
-
 const props = defineProps<{ repository: AnnouncementRepository }>()
 const open = ref(false)
 const onClick = () => open.value = !open.value

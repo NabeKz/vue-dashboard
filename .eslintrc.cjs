@@ -1,5 +1,32 @@
 /* eslint-env node */
 require("@rushstack/eslint-patch/modern-module-resolution")
+const fs = require("fs");
+const modules = fs.readdirSync("./src/modules");
+const zones = modules.map(module => ({
+  from: `./src/modules/${module}/!(public)/**/*`,
+  target: `./src/modules/!(${module})/**/*`
+}));
+
+module.exports = {
+  extends: [
+    "next/core-web-vitals",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+  ],
+  settings: {
+    "import/resolver": {
+      typescript: {},
+    },
+  },
+  rules: {
+    "import/no-restricted-paths": [
+      "error",
+      {
+        zones,
+      },
+    ],
+  }
+}
 
 module.exports = {
   root: true,
@@ -36,9 +63,14 @@ module.exports = {
       {
         zones: [
           {
-            target: "./src/lib/infra/auth/on-memory",
-            from: "./src/components/atoms",
+            target: "./src/components",
+            from: "./src/lib/infra",
             message: "NG!!!",
+          },
+          {
+            target: "./src/views",
+            from: "./src/views/!(_shared_|components)/**/*",
+            message: "not shared",
           },
         ],
       },
