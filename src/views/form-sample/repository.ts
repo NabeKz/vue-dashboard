@@ -10,7 +10,7 @@ export interface AnnouncementRepository {
   list(): Promise<WithId<Announcement>[]>
   save(announcement: Announcement): Promise<void>
 }
-/** @public */
+
 export class AnnouncementRepositoryOnMemory implements AnnouncementRepository {
   _list = [
     { id: 1, title: "aaa", content: "hogehoge" },

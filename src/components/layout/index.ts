@@ -1,4 +1,5 @@
-import PublicLayout from "./PublicLayout.vue";
-import ProtectedLayout from "./protected/ProtectedLayout.vue";
+import PublicLayout from "./PublicLayout.vue"
+import ProtectedLayout from "./protected/ProtectedLayout.vue"
 
-export { PublicLayout, ProtectedLayout };
+/** @public */
+export { ProtectedLayout, PublicLayout }

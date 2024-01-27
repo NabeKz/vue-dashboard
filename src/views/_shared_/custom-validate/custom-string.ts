@@ -1,7 +1,7 @@
 import { ZodString, z } from "zod"
 // TODO: アーキリファクタ
 // eslint-disable-next-line no-restricted-imports
-import type { CustomValidate } from "../interface"
+import type { CustomValidate } from "./interface"
 
 const string = () => z.string({ required_error: "必須項目です" })
 // TODO: tsdocで仕様書
