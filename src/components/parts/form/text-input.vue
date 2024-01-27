@@ -5,7 +5,7 @@ type Props = {
   errorMessage: string | undefined
 }
 defineProps<Props>()
-defineEmits<{ 'update:modelValue': [value: string] }>()
+defineEmits<{ "update:modelValue": [value: string] }>()
 
 const toValue = (e: Event) => {
   if (e.target instanceof HTMLInputElement) {

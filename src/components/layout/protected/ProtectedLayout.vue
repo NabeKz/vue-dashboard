@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { RouterView } from 'vue-router';
-import SideMenu from './SideMenu.vue';
-import TheHeader from './TheHeader.vue';
-import Main from './TheMain.vue';
+import { ref } from "vue";
+import { RouterView } from "vue-router";
+import SideMenu from "./SideMenu.vue";
+import TheHeader from "./TheHeader.vue";
+import Main from "./TheMain.vue";
 
 const slim = ref(false)
 const toggle = () => slim.value = !slim.value

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import FlexBox from './parts/box/flex-box.vue';
+import FlexBox from "./parts/box/flex-box.vue";
 
 
 type Props = {

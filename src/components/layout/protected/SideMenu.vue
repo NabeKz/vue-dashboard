@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import FlexBox from '@/components/parts/box/flex-box.vue';
-import GoogleFontIcon from '@/components/parts/icons/google-font-icon.vue';
+import FlexBox from "@/components/parts/box/flex-box.vue";
+import GoogleFontIcon from "@/components/parts/icons/google-font-icon.vue";
 
 defineProps<{ slim: boolean }>()
 defineEmits<{ toggle: [] }>()

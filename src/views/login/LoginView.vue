@@ -2,12 +2,16 @@
 import { FlexBox } from "@/components/parts/box/flex-box";
 import SmallButton from "@/components/parts/button/small-button.vue";
 import { TextInput } from "@/components/parts/form/text-input";
-import { useLogin } from "./use-login";
+import type { AuthRepository } from "@/lib/model/auth/repository";
 import { useRouter } from "vue-router";
+import { useLogin } from "./use-login";
+
+const { repository } = defineProps<{ repository: AuthRepository }>()
 
 const router = useRouter()
-const callback = () => router.replace({ name: "home" })
-const { email, password, errors, handleLogin } = useLogin(callback)
+const onSuccess = () => router.replace({ name: "home" })
+const onFailure = () => alert("ログインに失敗しました")
+const { email, password, errors, handleLogin } = useLogin({ onSuccess, onFailure, repository })
 </script>
 
 <template>
