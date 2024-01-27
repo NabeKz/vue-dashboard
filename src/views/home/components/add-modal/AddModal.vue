@@ -39,4 +39,4 @@ const onClickSubmit = () => handleSubmit(form => emits("submit", form))
 .buttons {
   justify-content: center;
 }
-</style>../../use-announcement-form/use-announcement-form
+</style>
