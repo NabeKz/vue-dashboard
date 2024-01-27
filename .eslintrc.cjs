@@ -1,32 +1,5 @@
 /* eslint-env node */
 require("@rushstack/eslint-patch/modern-module-resolution")
-const fs = require("fs");
-const modules = fs.readdirSync("./src/modules");
-const zones = modules.map(module => ({
-  from: `./src/modules/${module}/!(public)/**/*`,
-  target: `./src/modules/!(${module})/**/*`
-}));
-
-module.exports = {
-  extends: [
-    "next/core-web-vitals",
-    "plugin:import/recommended",
-    "plugin:import/typescript",
-  ],
-  settings: {
-    "import/resolver": {
-      typescript: {},
-    },
-  },
-  rules: {
-    "import/no-restricted-paths": [
-      "error",
-      {
-        zones,
-      },
-    ],
-  }
-}
 
 module.exports = {
   root: true,
@@ -38,9 +11,10 @@ module.exports = {
     "plugin:storybook/recommended"
   ],
   parserOptions: {
+    project: "./tsconfig.app.json",
     ecmaVersion: "latest"
   },
-  plugins: ["import"],
+  plugins: ["import", "import-access"],
   settings: {
     "import/resolver": {
       typescript: {
@@ -58,6 +32,10 @@ module.exports = {
         ]
       }
     ],
+    //https://github.com/uhyo/eslint-plugin-import-access/blob/master/docs/rule-jsdoc.md
+    "import-access/jsdoc": ["error", {
+      "defaultImportability": "package",
+    }],
     "import/no-restricted-paths": [
       "error",
       {
