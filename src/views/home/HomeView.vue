@@ -4,11 +4,9 @@ import { TheButton } from "@/components/parts/button";
 import { TableContainer } from "@/components/parts/table";
 import { ModalContainer } from "@/views/_shared_/components";
 import { ref } from "vue";
-import { AddModal } from "./components/add-modal";
-import { EditModal } from "./components/edit-modal";
+import { AddModal, EditModal } from "./components";
 import type { AnnouncementRepository } from "./repository";
 import { useAnnouncement } from "./use-announcement";
-
 const props = defineProps<{ repository: AnnouncementRepository }>()
 const open = ref(false)
 const onClick = () => open.value = !open.value

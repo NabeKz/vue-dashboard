@@ -1,5 +1,8 @@
-const storage = "token";
+const storage = "token"
 
-export const isAuthenticated = () => !!localStorage.getItem(storage);
-export const login = (token: string) => localStorage.setItem(storage, token);
-export const logout = () => localStorage.removeItem(storage);
+/** @public */
+export const isAuthenticated = () => !!localStorage.getItem(storage)
+/** @public */
+export const login = (token: string) => localStorage.setItem(storage, token)
+/** @public */
+export const logout = () => localStorage.removeItem(storage)

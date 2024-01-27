@@ -1,5 +1,5 @@
 import { onMounted, ref } from "vue"
-import type { Announcement, AnnouncementRepository, AnnouncementWithId } from "../repository"
+import type { Announcement, AnnouncementRepository, AnnouncementWithId } from "./repository"
 
 export const useAnnouncement = (repository: AnnouncementRepository) => {
   const announcementList = ref<AnnouncementWithId[]>([])
@@ -8,20 +8,20 @@ export const useAnnouncement = (repository: AnnouncementRepository) => {
     repository
       .save(announcement)
       .then(() => repository.list())
-      .then((data) => (announcementList.value = data))
-      .catch((err) => console.error(err))
+      .then(data => (announcementList.value = data))
+      .catch(err => console.error(err))
   }
 
   onMounted(() => {
     repository
       .list()
-      .then((data) => (announcementList.value = [...data]))
-      .catch((err) => console.error(err))
+      .then(data => (announcementList.value = [...data]))
+      .catch(err => console.error(err))
   })
 
   return {
     announcementList,
-    addAnnouncement
+    addAnnouncement,
   }
 }
 

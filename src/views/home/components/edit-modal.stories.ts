@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/vue3"
-import { within, userEvent, expect } from "@storybook/test"
 import { EditModal } from "./edit-modal"
 
 const meta = {
   title: "Home/EditModal",
   component: EditModal,
-  tags: ["autodocs"]
+  tags: ["autodocs"],
 } satisfies Meta<typeof EditModal>
 
 export default meta
@@ -15,8 +14,8 @@ type Story = StoryObj<typeof meta>
 export const Normal: Story = {
   args: {
     onSubmit: () => null,
-    onClose: () => null
-  }
+    onClose: () => null,
+  },
   // play: async ({ canvasElement }: any) => {
   //   const canvas = within(canvasElement)
   //   const loginButton = canvas.getByRole("button", { name: /Log in/i })
