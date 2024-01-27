@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import { AuthProvider } from "@/provider/auth-provider"
 </script>
 
 <template>
-  <RouterView />
+  <AuthProvider>
+    <RouterView />
+  </AuthProvider>
   <div id="modal-overlay"></div>
 </template>
 
