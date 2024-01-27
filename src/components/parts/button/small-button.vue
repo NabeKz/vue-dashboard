@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import BaseButton, { type Kind } from './the-button.vue';
+import BaseButton, { type Kind } from "./the-button.vue";
 defineProps<{ type: Kind, disabled?: boolean }>()
 </script>
 

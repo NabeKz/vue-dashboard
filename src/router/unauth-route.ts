@@ -1,12 +1,14 @@
-import { PublicLayout } from "@/components/layout";
+import { PublicLayout } from "@/components/layout"
+import { AuthRepositoryOnMemory } from "@/lib/infra/auth/on-memory"
 
 const routes = [
   {
     path: "login",
     name: "login",
+    props: { repository: new AuthRepositoryOnMemory() },
     component: () => import("@/views/login/LoginView.vue"),
   },
-];
+]
 
 export const publicRoutes = [
   {
@@ -14,4 +16,4 @@ export const publicRoutes = [
     component: PublicLayout,
     children: routes,
   },
-];
+]

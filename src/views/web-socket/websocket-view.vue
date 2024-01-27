@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import FlexBox from '@/components/parts/box/flex-box.vue';
-import SmallButton from '@/components/parts/button/small-button.vue';
-import { ref } from 'vue';
-import { useWebSocket } from './use-websocket';
+import FlexBox from "@/components/parts/box/flex-box.vue";
+import SmallButton from "@/components/parts/button/small-button.vue";
+import { ref } from "vue";
+import { useWebSocket } from "./use-websocket";
 
 const open = ref(false)
 const onClick = () => {
