@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import GoogleFontIcon from '@/components/parts/icons/google-font-icon.vue';
 import { logout } from '@/provider/auth-provider/use-auth';
-import GoogleFontIcon from './parts/icons/google-font-icon.vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
