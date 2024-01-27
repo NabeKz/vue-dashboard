@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-import { ref } from "vue";
-import { createContext } from "../auth-provider/use-snackbar";
 import SnackBar from "@/components/layout/SnackBar.vue";
+import { ref } from "vue";
+// TODO: アーキリファクタ
+// eslint-disable-next-line no-restricted-imports
+import { createContext } from "../auth-provider/use-snackbar";
 
 const message = ref("")
 const open = ref(false)

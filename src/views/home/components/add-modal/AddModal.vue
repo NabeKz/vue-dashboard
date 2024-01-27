@@ -2,8 +2,8 @@
 import { FlexBox } from "@/components/parts/box";
 import { TheButton } from "@/components/parts/button";
 import { TextInput } from "@/components/parts/form";
-import type { Announcement } from "../../repository";
-import { useAnnouncementForm } from "../../use-announcement-form";
+import type { Announcement } from "@/views/home/repository";
+import { useAnnouncementForm } from "@/views/home/use-announcement-form";
 
 const emits = defineEmits<{ close: [], submit: [model: Announcement] }>()
 
@@ -39,4 +39,4 @@ const onClickSubmit = () => handleSubmit(form => emits("submit", form))
 .buttons {
   justify-content: center;
 }
-</style>
+</style>../../use-announcement-form/use-announcement-form
