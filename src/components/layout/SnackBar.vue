@@ -3,7 +3,7 @@ import { FlexBox } from "@/components/parts/box/flex-box";
 import { useErrorHandler } from "@/provider/auth-provider/use-snackbar";
 import GoogleFontIcon from "@/components/parts/icons/google-font-icon.vue";
 
-defineProps<{ open: boolean }>()
+defineProps<{ open: boolean; message: string }>()
 const handler = useErrorHandler()
 const onClickClose = () => handler?.handleClose()
 </script>
@@ -11,7 +11,7 @@ const onClickClose = () => handler?.handleClose()
 <template>
   <FlexBox class="snackbar-wrapper" :class="{ open }">
     <div class="snackbar">
-      message
+      {{ message }}
       <GoogleFontIcon class="close" @click="onClickClose">close</GoogleFontIcon>
     </div>
   </FlexBox>
@@ -26,11 +26,10 @@ const onClickClose = () => handler?.handleClose()
   position: fixed;
   bottom: 0;
   transform: translateY(100px);
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
 
   &.open {
     transform: translateY(0px);
-    transition: all 0.3s ease;
   }
 }
 

@@ -2,8 +2,7 @@ import type { InjectionKey } from "vue"
 import { inject, provide } from "vue"
 
 type Context = {
-  open: boolean
-  handleOpen: () => void
+  handleOpen: (value: string) => void
   handleClose: () => void
 }
 
