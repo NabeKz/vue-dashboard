@@ -1,16 +1,14 @@
 <script lang="ts" setup>
 type Props = {
-  row: true;
-  column?: never;
-} | {
-  row?: never;
-  column: true
-}
-defineProps<Props>();
+  row?: true;
+  column?: true
+} & { gap?: "16" | "24" | "32" | "64" }
+const props = defineProps<Props>();
+const gap = `gap${props.gap ?? 8}`;
 </script>
 
 <template>
-  <div class="flex-box" :class="{ row, column }">
+  <div class="flex-box" :class="[gap, { row, column }]">
     <slot></slot>
   </div>
 </template>
@@ -25,6 +23,26 @@ defineProps<Props>();
 
   &.column {
     flex-direction: column;
+  }
+
+  &.gap8 {
+    gap: 8px
+  }
+
+  &.gap16 {
+    gap: 16px
+  }
+
+  &.gap24 {
+    gap: 24px
+  }
+
+  &.gap32 {
+    gap: 32px
+  }
+
+  &.gap64 {
+    gap: 64px
   }
 }
 </style>

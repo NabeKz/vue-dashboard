@@ -7,13 +7,6 @@ import { AuthProvider } from "@/provider/auth-provider"
   <AuthProvider>
     <RouterView />
   </AuthProvider>
-  <div id="modal-overlay"></div>
 </template>
 
-<style scoped>
-#modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-</style>
+<style scoped></style>

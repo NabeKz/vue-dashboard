@@ -4,23 +4,6 @@
 #app {
   display: flex;
   min-height: 100vh;
-
-  &.slim {
-    grid-template-columns: 80px 1fr;
-  }
-
-  .aside {
-    grid-area: aside;
-    background: var(--vt-c-indigo);
-  }
-  .main {
-    grid-area: main;
-    background: white;
-  }
-  .footer {
-    grid-area: footer;
-    background: whitesmoke;
-  }
 }
 
 ul,

@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { FlexBox } from "@/components/parts/box/flex-box"
+import { FlexBox } from "@/components/parts/box/flex-box";
+import SmallButton from "@/components/parts/button/small-button.vue";
 import { TextInput } from "@/components/parts/form/text-input";
 import { useLogin } from "./use-login";
-import SmallButton from "@/components/parts/button/small-button.vue";
+import { useRouter } from "vue-router";
 
-const { email, password, errors, handleLogin } = useLogin()
+const router = useRouter()
+const callback = () => router.replace({ name: "home" })
+const { email, password, errors, handleLogin } = useLogin(callback)
 </script>
 
 <template>
