@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import FlexBox from "@/components/parts/box/flex-box.vue";
-import SmallButton from "@/components/parts/button/small-button.vue";
-import TextInput from "@/components/parts/form/text-input.vue";
-import { useAnnouncementForm } from "../../use-announcement-form";
+import { FlexBox } from "@/components/parts/box";
+import { TheButton } from "@/components/parts/button";
+import { TextInput } from "@/components/parts/form";
 import type { Announcement } from "../../repository";
+import { useAnnouncementForm } from "../../use-announcement-form";
 
 const emits = defineEmits<{ close: [], submit: [model: Announcement] }>()
 
@@ -12,17 +12,17 @@ const onClickSubmit = () => handleSubmit(form => emits("submit", form))
 </script>
 
 <template>
-  <FlexBox column class="edit-modal gap-8">
+  <FlexBox class="column edit-modal">
     <header>
       <h1>add modal</h1>
     </header>
     <form @submit.prevent>
-      <FlexBox column class="gap-24">
-        <text-input label="title" v-model="title" :error-message="errors.title" />
-        <text-input label="content" v-model="content" :error-message="errors.content" />
-        <FlexBox row class="buttons gap-24">
-          <SmallButton type="submit" @click="onClickSubmit">submit</SmallButton>
-          <SmallButton type="submit" @click="$emit('close')">close</SmallButton>
+      <FlexBox class="column" gap="24">
+        <TextInput label="title" v-model="title" :error-message="errors.title" />
+        <TextInput label="content" v-model="content" :error-message="errors.content" />
+        <FlexBox class="row buttons" gap="24">
+          <TheButton kind="submit" @click="onClickSubmit">submit</TheButton>
+          <TheButton kind="submit" @click="$emit('close')">close</TheButton>
         </FlexBox>
       </FlexBox>
     </form>

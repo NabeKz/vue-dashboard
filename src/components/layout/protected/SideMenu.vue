@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import FlexBox from "@/components/parts/box/flex-box.vue";
-import GoogleFontIcon from "@/components/parts/icons/google-font-icon.vue";
+import { FlexBox } from "@/components/parts/box";
+import { GoogleFontIcon } from "@/components/parts/icons";
 
 defineProps<{ slim: boolean }>()
 defineEmits<{ toggle: [] }>()
@@ -12,14 +12,14 @@ const routes = [
 
 <template>
   <aside>
-    <FlexBox row class="menu-icon-wrapper" :class="{ slim }">
+    <FlexBox class="row menu-icon-wrapper" :class="{ slim }">
       <GoogleFontIcon @click="$emit('toggle')" class="menu-icon" :class="{ slim }"></GoogleFontIcon>
     </FlexBox>
     <ul class="aside_list">
       <template v-for="route in routes" :key="route.name">
         <li class="aside_list-item">
           <RouterLink :to="{ name: route.name }">
-            <FlexBox row class="list-item" :class="{ slim }">
+            <FlexBox class="row list-item" :class="{ slim }">
               <GoogleFontIcon>{{ route.icon }}</GoogleFontIcon>
               <div v-show="!slim">{{ route.name }}</div>
             </FlexBox>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import FlexBox from "@/components/parts/box/flex-box.vue";
-import SmallButton from "@/components/parts/button/small-button.vue";
-import TextInput from "@/components/parts/form/text-input.vue";
+import { FlexBox } from "@/components/parts/box";
+import { TheButton } from "@/components/parts/button";
+import { TextInput } from "@/components/parts/form";
 import { ref } from "vue";
 
 type Props = {
@@ -19,17 +19,17 @@ const model = ref<Model>({ name: "", title: "" })
 </script>
 
 <template>
-  <FlexBox column class="edit-modal gap-8">
+  <FlexBox class="column edit-modal">
     <header>
       <h1>edit modal</h1>
     </header>
     <form @submit.prevent>
-      <FlexBox column class="gap-24">
+      <FlexBox class="column" gap="24">
         <TextInput label="name" v-model="model.name" :error-message="''" />
         <TextInput label="title" v-model="model.title" :error-message="''" />
-        <FlexBox row class="buttons gap-24">
-          <SmallButton type="submit" @click="$emit('submit', model)">submit</SmallButton>
-          <SmallButton type="submit" @click="$emit('close')">close</SmallButton>
+        <FlexBox class="row buttons" gap="24">
+          <TheButton kind="submit" @click="$emit('submit', model)">submit</TheButton>
+          <TheButton kind="submit" @click="$emit('close')">close</TheButton>
         </FlexBox>
       </FlexBox>
     </form>

@@ -1,3 +1,3 @@
-import SmallButton from "./small-button.vue";
+import TheButton from "./TheButton.vue"
 
-export { SmallButton };
+export { TheButton }

@@ -11,19 +11,19 @@ export const useWebSocket = (url: string) => {
     open: () => init(state.value, url, callback),
     close: () => close(state.value, callback),
     ask: () => send(state.value, "ask"),
-    bid: () => send(state.value, "bid")
+    bid: () => send(state.value, "bid"),
   }
 
   const dto = computed(() => ({
     disabledOpen: state.value.status === "open" || state.value.status === "connecting",
     disabledClose: state.value.status === "close" || state.value.status === "connecting",
-    message: state.value.message
+    message: state.value.message,
   }))
 
   window.addEventListener("beforeunload", ws.close)
 
   return {
     ws,
-    dto
+    dto,
   }
 }

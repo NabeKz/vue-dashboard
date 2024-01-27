@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import FlexBox from "@/components/parts/box/flex-box.vue";
-import TextInput from "@/components/parts/form/text-input.vue";
+import { FlexBox } from "@/components/parts/box";
+import { SelectBox, TextInput } from "@/components/parts/form";
 import { useMyForm } from "./form";
-import SelectBox from "@/components/parts/form/select-box.vue";
 
 const { email, item, handleSubmit, errors } = useMyForm()
 const items = [
@@ -16,7 +15,7 @@ const onSubmit = handleSubmit(values => {
 </script>
 
 <template>
-  <FlexBox column>
+  <FlexBox class="column">
     <h1>form-sample</h1>
     <form @submit.prevent @submit="console.debug($event.target)">
       {{ errors }}

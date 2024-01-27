@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import ModalContainer from "@/components/modal-container.vue";
-import FlexBox from "@/components/parts/box/flex-box.vue";
-import SpaceBox from "@/components/parts/box/space-box.vue";
-import SmallButton from "@/components/parts/button/small-button.vue";
-import TableContainer from "@/components/parts/table/table-container.vue";
+import { FlexBox, SpaceBox } from "@/components/parts/box";
+import { TheButton } from "@/components/parts/button";
+import { TableContainer } from "@/components/parts/table";
+import { ModalContainer } from "@/views/_shared_/components";
 import { ref } from "vue";
 import { AddModal } from "./components/add-modal";
 import { EditModal } from "./components/edit-modal";
@@ -21,10 +20,10 @@ const { addAnnouncement, announcementList } = useAnnouncement(props.repository)
 </script>
 
 <template>
-  <FlexBox column>
+  <FlexBox class="column">
     home
-    <FlexBox column class="gap-8">
-      <FlexBox row class="gap-8">
+    <FlexBox class="column">
+      <FlexBox class="row">
         <SmallButton type="submit" @click="handleAddAnnouncement">新規登録</SmallButton>
       </FlexBox>
     </FlexBox>
@@ -41,7 +40,7 @@ const { addAnnouncement, announcementList } = useAnnouncement(props.repository)
         <td>{{ item.title }}</td>
         <td>{{ item.content }}</td>
         <td>
-          <SmallButton type="submit" @click="onClick">編集</SmallButton>
+          <TheButton kind="submit" @click="onClick">編集</TheButton>
         </td>
       </template>
     </TableContainer>
