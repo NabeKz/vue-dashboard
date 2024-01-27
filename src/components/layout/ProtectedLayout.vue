@@ -10,6 +10,7 @@ const toggle = () => slim.value = !slim.value
 </script>
 
 <template>
+  <div id="modal-overlay"></div>
   <div id="wrapper" :class="{ slim }">
     <TheHeader class="header" />
     <SideMenu class="aside" @toggle="toggle" :slim="slim" />
@@ -17,7 +18,6 @@ const toggle = () => slim.value = !slim.value
       <RouterView />
     </Main>
   </div>
-  <div id="modal-overlay"></div>
 </template>
 
 <style scoped>
