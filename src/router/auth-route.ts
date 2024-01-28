@@ -20,7 +20,7 @@ const routes = [
     component: () => import("@/views/form-sample/FormSampleView.vue"),
   },
 ]
-/** @public */
+
 export const protectedRoutes = [
   {
     path: "/",

@@ -10,7 +10,7 @@ const routes = [
     component: () => import("@/views/login/LoginView.vue"),
   },
 ]
-/** @public */
+
 export const publicRoutes = [
   {
     path: "/auth",
