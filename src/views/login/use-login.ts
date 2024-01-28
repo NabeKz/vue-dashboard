@@ -25,7 +25,10 @@ export const useLogin = ({ onSuccess, onFailure, storage, repository }: Params) 
       .login({ id: form.email, password: form.password })
       .then(res => storage.setToken(res.token))
       .then(() => onSuccess())
-      .catch(() => onFailure())
+      .catch(err => {
+        console.error(err)
+        onFailure()
+      })
   })
 
   return {

@@ -4,13 +4,13 @@ import { LocalStorage } from "@/provider/auth-provider/storage"
 
 const routes = [
   {
-    path: "login",
+    path: "/login",
     name: "login",
     props: { repository: new AuthRepositoryOnMemory(), storage: new LocalStorage() },
     component: () => import("@/views/login/LoginView.vue"),
   },
 ]
-
+/** @public */
 export const publicRoutes = [
   {
     path: "/auth",

@@ -13,7 +13,7 @@ const handler = useErrorHandler()
 
 const router = useRouter()
 const onSuccess = () => router.replace({ name: "home" })
-const onFailure = () => handler?.handleOpen("なんか失敗しました")
+const onFailure = () => handler?.handleOpen("ログインできませんでした")
 const { email, password, errors, handleLogin } = useLogin({ onSuccess, onFailure, repository, storage })
 </script>
 
@@ -24,8 +24,8 @@ const { email, password, errors, handleLogin } = useLogin({ onSuccess, onFailure
     </div>
     <h1>Sign in to App</h1>
     <form @submit.prevent>
-      <TextInput label="email" v-model="email" :error-message="errors.email" autocomplete />
-      <TextInput type="password" label="password" v-model="password" :error-message="errors.password" autocomplete />
+      <TextInput name="email" label="email" v-model="email" :error-message="errors.email" />
+      <TextInput name="password" label="password" v-model="password" :error-message="errors.password" type="password" />
       <TheButton kind="submit" @click="handleLogin">保存</TheButton>
     </form>
   </FlexBox>
