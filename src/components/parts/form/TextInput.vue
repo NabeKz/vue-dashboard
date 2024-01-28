@@ -18,7 +18,7 @@ const toValue = (e: Event) => {
 <template>
   <div class="input-field">
     <label>{{ label }}</label>
-    <input :value=modelValue @input="$emit('update:modelValue', toValue($event))" />
+    <input v-bind="$attrs" :value=modelValue @input="$emit('update:modelValue', toValue($event))" />
     <span class="error">{{ errorMessage }}</span>
   </div>
 </template>

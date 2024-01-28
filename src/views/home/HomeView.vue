@@ -22,7 +22,7 @@ const { addAnnouncement, announcementList } = useAnnouncement(props.repository)
     home
     <FlexBox class="column">
       <FlexBox class="row">
-        <SmallButton type="submit" @click="handleAddAnnouncement">新規登録</SmallButton>
+        <TheButton kind="submit" @click="handleAddAnnouncement">新規登録</TheButton>
       </FlexBox>
     </FlexBox>
     <SpaceBox h="10px" />

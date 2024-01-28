@@ -1,5 +1,5 @@
 import type { AuthRepository } from "@/lib/model/auth/repository"
-import { login } from "@/provider/auth-provider/use-auth"
+import type { TokenStorage } from "@/provider/auth-provider/storage"
 import { z } from "@/views/_shared_/custom-validate"
 import { useCustomForm } from "@/views/_shared_/use-custom-form"
 
@@ -11,18 +11,19 @@ const schema = z.object({
 type Params = {
   onSuccess: () => void
   onFailure: () => void
+  storage: TokenStorage
   repository: AuthRepository
 }
 
-export const useLogin = ({ onSuccess, onFailure, repository }: Params) => {
+export const useLogin = ({ onSuccess, onFailure, storage, repository }: Params) => {
   const { defineField, errors, handleSubmit } = useCustomForm(schema)
   const [email] = defineField("email")
   const [password] = defineField("password")
 
   const handleLogin = handleSubmit(form => {
-    login("ok")
     repository
       .login({ id: form.email, password: form.password })
+      .then(res => storage.setToken(res.token))
       .then(() => onSuccess())
       .catch(() => onFailure())
   })

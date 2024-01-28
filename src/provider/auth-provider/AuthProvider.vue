@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import router from "@/router";
-import { isAuthenticated } from "./use-auth";
 import { protectedRoutes } from "@/router/auth-route";
+import { isAuthenticated } from "./use-auth";
 
 const isProtected = (path: string) => {
   return protectedRoutes.some(route => route.path === path)

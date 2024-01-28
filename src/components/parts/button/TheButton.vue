@@ -1,11 +1,18 @@
 <script lang="ts" setup>
 type Kind = "submit" | "caution"
+type Size = "s" | "m" | "l"
 
-defineProps<{ kind: Kind, disabled?: boolean }>()
+defineProps<{ kind: Kind, size?: Size, disabled?: boolean }>()
+
+const SIZE_DICT = {
+  s: "small",
+  m: "medium",
+  l: "large",
+} as const
 </script>
 
 <template>
-  <button class="button pa-8" :class="kind" :disabled="disabled ?? false">
+  <button class="button pa-8" :class="[kind, size && SIZE_DICT[size]]" :disabled="disabled ?? false">
     <slot></slot>
   </button>
 </template>
@@ -18,7 +25,7 @@ defineProps<{ kind: Kind, disabled?: boolean }>()
   outline: none;
   appearance: none;
   border-radius: 4px;
-  width: 100%;
+  width: auto;
 
   &.submit {
     background: steelblue;
@@ -33,6 +40,18 @@ defineProps<{ kind: Kind, disabled?: boolean }>()
   &:disabled {
     background: gray;
     color: white;
+  }
+
+  &.small {
+    width: 60px
+  }
+
+  &.medium {
+    width: 120px
+  }
+
+  &.large {
+    width: 240px
   }
 }
 </style>

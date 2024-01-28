@@ -1,20 +1,23 @@
 import type { Meta, StoryObj } from "@storybook/vue3"
-import { EditModal } from "./edit-modal"
+import LoginView from "./LoginView.vue"
+import { AuthRepositoryOnMemory } from "@/lib/infra/auth/on-memory"
+import { LocalStorage } from "@/provider/auth-provider/storage"
 
 const meta = {
-  title: "Home/EditModal",
-  component: EditModal,
+  title: "Views/LoginView",
+  component: LoginView,
   tags: ["autodocs"],
-} satisfies Meta<typeof EditModal>
+  decorators: [() => ({ template: "<public-layout><story /></public-layout>" })],
+} satisfies Meta<typeof LoginView>
 
 export default meta
+
 type Story = StoryObj<typeof meta>
 
-// More on interaction testing: https://storybook.js.org/docs/writing-tests/interaction-testing
 export const Normal: Story = {
   args: {
-    onSubmit: () => null,
-    onClose: () => null,
+    repository: new AuthRepositoryOnMemory(),
+    storage: new LocalStorage(),
   },
   // play: async ({ canvasElement }: any) => {
   //   const canvas = within(canvasElement)
