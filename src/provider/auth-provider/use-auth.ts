@@ -1,8 +1,5 @@
-const storage = "token"
+const key = "token"
 
+// TODO: 削除、TokenStorageに委譲
 /** @public */
-export const isAuthenticated = () => !!localStorage.getItem(storage)
-/** @public */
-export const login = (token: string) => localStorage.setItem(storage, token)
-/** @public */
-export const logout = () => localStorage.removeItem(storage)
+export const logout = () => localStorage.removeItem(key)

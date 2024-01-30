@@ -9,27 +9,33 @@ const onClickClose = () => handler?.handleClose()
 </script>
 
 <template>
-  <FlexBox class="row snackbar-wrapper" :class="{ open }">
-    <div class="snackbar">
-      {{ message }}
-      <GoogleFontIcon class="close" @click="onClickClose">close</GoogleFontIcon>
-    </div>
-  </FlexBox>
+  <Transition>
+    <FlexBox class="row snackbar-wrapper" v-if="open">
+      <div class="snackbar">
+        {{ message }}
+        <GoogleFontIcon class="close" @click="onClickClose">close</GoogleFontIcon>
+      </div>
+    </FlexBox>
+  </Transition>
 </template>
 
 <style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  transform: translateY(100px) translateY(0px);
+}
+
 .snackbar-wrapper {
   justify-content: center;
   height: 100px;
   width: 100%;
   position: fixed;
   bottom: 0;
-  transform: translateY(100px);
-  transition: all 0.5s ease;
-
-  &.open {
-    transform: translateY(0px);
-  }
 }
 
 .snackbar {

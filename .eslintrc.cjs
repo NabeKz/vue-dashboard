@@ -50,4 +50,23 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: [
+        "./**/*.stories.ts",
+      ],
+      rules: {
+        "quotes": "off",
+        "import-access/jsdoc": "off",
+      },
+    },
+    {
+      files: [
+        "./src/provider/**/*.vue",
+      ],
+      rules: {
+        "import-access/jsdoc": "off"
+      },
+    }
+  ],
 }

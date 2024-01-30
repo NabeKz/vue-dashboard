@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3"
-import { EditModal } from "./edit-modal"
+import EditModal from "./EditModal.vue"
 
 const meta = {
   title: "Home/EditModal",
