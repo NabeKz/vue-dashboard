@@ -1,5 +1,5 @@
 import type { AuthRepository } from "@/lib/model/auth/repository"
-import type { TokenStorage } from "@/provider/auth-provider/storage"
+import type { TokenStorage } from "@/lib/infra/auth/storage"
 import { z } from "@/views/_shared_/custom-validate"
 import { useCustomForm } from "@/views/_shared_/use-custom-form"
 

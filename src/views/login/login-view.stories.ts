@@ -1,5 +1,5 @@
 import { AuthRepositoryOnMemory } from "@/lib/infra/auth/on-memory"
-import { LocalStorage } from "@/provider/auth-provider/storage"
+import { LocalStorage } from "@/lib/infra/auth/storage"
 import { userEvent, within, expect } from "@storybook/test"
 import { type Meta, type StoryObj } from "@storybook/vue3"
 import LoginView from "./LoginView.vue"

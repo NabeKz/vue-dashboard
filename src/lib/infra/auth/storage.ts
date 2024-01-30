@@ -1,14 +1,10 @@
-/** @public */
-export interface TokenStorage {
-  getToken(): Promise<string>
-  setToken(token: string): Promise<void>
-  removeToken(): Promise<void>
-}
+import type { TokenStorage } from "@/lib/model/auth/token-storage"
+
 /** @public */
 export class LocalStorage implements TokenStorage {
   key = "token"
 
-  getToken(): Promise<string> {
+  async getToken(): Promise<string> {
     const token = localStorage.getItem(this.key)
     const json = JSON.parse(token ?? "{}")["token"]
     return json ?? ""

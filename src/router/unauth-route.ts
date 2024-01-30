@@ -1,6 +1,6 @@
 import { PublicLayout } from "@/components/layout"
 import { AuthRepositoryOnMemory } from "@/lib/infra/auth/on-memory"
-import { LocalStorage } from "@/provider/auth-provider/storage"
+import { LocalStorage } from "@/lib/infra/auth/storage"
 
 const routes = [
   {
