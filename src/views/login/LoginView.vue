@@ -2,7 +2,7 @@
 import { FlexBox } from "@/components/parts/box";
 import { TextInput } from "@/components/parts/form";
 import type { AuthRepository } from "@/lib/model/auth/repository";
-import { useErrorHandler } from "@/provider/auth-provider/use-snackbar";
+import { useErrorHandler } from "@/provider/use-context";
 import { useRouter } from "vue-router";
 import { useLogin } from "./use-login";
 import type { TokenStorage } from "@/lib/model/auth/token-storage";
@@ -46,4 +46,4 @@ form {
   flex-direction: column;
   gap: 8px
 }
-</style>
+</style>@/provider/auth-provider/use-context

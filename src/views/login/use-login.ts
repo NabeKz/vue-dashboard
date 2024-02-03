@@ -1,5 +1,5 @@
 import type { AuthRepository } from "@/lib/model/auth/repository"
-import type { TokenStorage } from "@/lib/infra/auth/storage"
+import type { TokenStorage } from "@/lib/model/auth/token-storage"
 import { z } from "@/views/_shared_/custom-validate"
 import { useCustomForm } from "@/views/_shared_/use-custom-form"
 
@@ -16,7 +16,7 @@ type Params = {
 }
 
 export const useLogin = ({ onSuccess, onFailure, storage, repository }: Params) => {
-  const { defineField, errors, meta, handleSubmit } = useCustomForm(schema)
+  const { defineField, errors, handleSubmit } = useCustomForm(schema)
   const [email] = defineField("email")
   const [password] = defineField("password")
 

@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-
-
+defineProps<{ loading: boolean }>()
 </script>
 
 <template>
-  <div class="overlay">
+  <div class="overlay" v-show="loading">
     <div class="loader"></div>
   </div>
 </template>
