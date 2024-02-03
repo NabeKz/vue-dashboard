@@ -2,25 +2,33 @@
 import { ref } from "vue";
 import TheButton from "./TheButton.vue"
 
-const isLoading = ref(false)
+const props = defineProps<{ command: () => Promise<void> }>()
+const loading = ref(false)
+const onClick = () => {
+  if (loading.value) return
 
-const toggleLoading = () => isLoading.value = !isLoading.value
+  loading.value = true
+  props
+    .command()
+    .finally(() => loading.value = false)
+}
 </script>
 
 <template>
-  <div>
-    <div class="btn-container">
-      <TheButton kind="submit">aaaaa</TheButton>
-      <div class="loader-wrapper">
-        <div class="loader"></div>
-      </div>
+  <div class="btn-container">
+    <div class="loader-wrapper" v-if="loading">
+      <div class="loader"></div>
     </div>
+    <TheButton kind="submit" @click="onClick" size="full">
+      <slot></slot>
+    </TheButton>
   </div>
 </template>
 
 <style scoped>
 .btn-container {
   position: relative;
+  width: 100%;
 }
 
 .loader-wrapper {

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import SnackBar from "@/components/layout/SnackBar.vue";
+import LoaderOverlay from "@/components/layout/LoaderOverlay.vue";
 import { ref } from "vue";
 // TODO: アーキリファクタ
 // eslint-disable-next-line no-restricted-imports
@@ -24,6 +25,7 @@ createContext({ handleOpen, handleClose })
 <template>
   <slot></slot>
   <SnackBar :open="open" :message="message" />
+  <LoaderOverlay />
 </template>
 
 <style scoped></style>

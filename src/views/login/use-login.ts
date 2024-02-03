@@ -16,20 +16,21 @@ type Params = {
 }
 
 export const useLogin = ({ onSuccess, onFailure, storage, repository }: Params) => {
-  const { defineField, errors, handleSubmit } = useCustomForm(schema)
+  const { defineField, errors, meta, handleSubmit } = useCustomForm(schema)
   const [email] = defineField("email")
   const [password] = defineField("password")
 
-  const handleLogin = handleSubmit(form => {
-    repository
-      .login({ id: form.email, password: form.password })
-      .then(res => storage.setToken(res.token))
-      .then(() => onSuccess())
-      .catch(err => {
-        console.error(err)
-        onFailure()
-      })
-  })
+  const command = async (form: { email: string; password: string }) => {
+    try {
+      const res = await repository.login({ id: form.email, password: form.password })
+      storage.setToken(res.token)
+      return onSuccess()
+    } catch (err) {
+      console.error(err)
+      onFailure()
+    }
+  }
+  const handleLogin = handleSubmit(command)
 
   return {
     email,

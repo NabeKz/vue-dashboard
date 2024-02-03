@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 type Kind = "submit" | "caution"
-type Size = "s" | "m" | "l"
+type Size = "s" | "m" | "l" | "full"
 
 defineProps<{ kind: Kind, size?: Size, disabled?: boolean }>()
 
@@ -8,6 +8,7 @@ const SIZE_DICT = {
   s: "small",
   m: "medium",
   l: "large",
+  full: "full",
 } as const
 </script>
 
@@ -52,6 +53,10 @@ const SIZE_DICT = {
 
   &.large {
     width: 240px
+  }
+
+  &.full {
+    width: 100%;
   }
 }
 </style>
