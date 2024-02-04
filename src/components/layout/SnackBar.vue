@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { FlexBox } from "@/components/parts/box";
 import { GoogleFontIcon } from "@/components/parts/icons";
-import { useErrorHandler } from "@/provider/auth-provider/use-snackbar";
+import { useErrorHandler } from "@/provider/use-context";
 
 defineProps<{ open: boolean; message: string }>()
 const handler = useErrorHandler()

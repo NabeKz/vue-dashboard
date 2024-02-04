@@ -8,8 +8,8 @@ type Context = {
 
 type OverlayContext = <T>(
   command: () => Promise<T>,
-  onSuccess: (data: T) => void,
-  onFailure: () => void,
+  onSuccess: (data: T) => Promise<void>,
+  onFailure: (e: unknown) => Promise<void>,
 ) => Promise<void>
 
 const snackbar = Symbol() as InjectionKey<Context>

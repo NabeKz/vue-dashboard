@@ -3,7 +3,6 @@ import SnackBar from "@/components/layout/SnackBar.vue";
 import LoaderOverlay from "@/components/layout/LoaderOverlay.vue";
 import { ref } from "vue";
 // TODO: アーキリファクタ
-// eslint-disable-next-line no-restricted-imports
 import { createContext } from "@/provider/use-context"
 
 const message = ref("")
@@ -18,12 +17,16 @@ const handleOpen = (value: string) => {
   setTimeout(handleClose, 2 * 1000);
 }
 
-const withOverlay = async <T, U>(command: () => Promise<T>, onSuccess: (data: T) => void, onFailure: (error: U) => void) => {
+const withOverlay = async <T>(command: () => Promise<T>, onSuccess: (data: T) => Promise<void>, onFailure: (e: unknown) => Promise<void>) => {
   loading.value = true
-  command()
-    .then(onSuccess)
-    .catch(onFailure)
-    .finally(() => loading.value = false)
+  try {
+    const data = await command()
+    await onSuccess(data)
+  } catch (e) {
+    await onFailure(e)
+  } finally {
+    loading.value = false
+  }
 }
 
 createContext({ handleOpen, handleClose }, withOverlay)
