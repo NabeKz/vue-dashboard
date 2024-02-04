@@ -1,20 +1,17 @@
 <script setup lang="ts">
 import { FlexBox } from "@/components/parts/box";
-import { TheButton } from "@/components/parts/button";
 import { TextInput } from "@/components/parts/form";
 import type { AuthRepository } from "@/lib/model/auth/repository";
-import { useErrorHandler } from "@/provider/auth-provider/use-snackbar";
-import { useRouter } from "vue-router";
+import { useErrorHandler } from "@/provider/use-context";
 import { useLogin } from "./use-login";
-import type { TokenStorage } from "@/provider/auth-provider/storage";
+import type { TokenStorage } from "@/lib/model/auth/token-storage";
+import { TheButton } from "@/components/parts/button";
 
 const { repository, storage } = defineProps<{ repository: AuthRepository; storage: TokenStorage }>()
 const handler = useErrorHandler()
 
-const router = useRouter()
-const onSuccess = () => router.replace({ name: "home" })
 const onFailure = () => handler?.handleOpen("ログインできませんでした")
-const { email, password, errors, handleLogin } = useLogin({ onSuccess, onFailure, repository, storage })
+const { email, password, errors, handleLogin } = useLogin({ onFailure, repository, storage })
 </script>
 
 <template>
@@ -46,4 +43,4 @@ form {
   flex-direction: column;
   gap: 8px
 }
-</style>@/lib/infra/auth/storage
+</style>
