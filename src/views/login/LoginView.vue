@@ -20,10 +20,9 @@ const { email, password, errors, handleLogin } = useLogin({ onFailure, repositor
       this is header
     </div>
     <h1>Sign in to App</h1>
-    <form @submit.prevent autocomplete="off">
-      <TextInput name="email" label="email" v-model="email" :error-message="errors.email" autocomplete="off" />
-      <TextInput name="password" label="password" v-model="password" :error-message="errors.password" type="password"
-        autocomplete="off" />
+    <form @submit.prevent>
+      <TextInput name="email" label="email" v-model="email" :error-message="errors.email" />
+      <TextInput name="password" label="password" v-model="password" :error-message="errors.password" type="password" />
       <TheButton kind="submit" @click="handleLogin">保存</TheButton>
     </form>
   </FlexBox>
@@ -44,4 +43,4 @@ form {
   flex-direction: column;
   gap: 8px
 }
-</style>@/provider/auth-provider/use-context
+</style>
