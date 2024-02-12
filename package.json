@@ -14,7 +14,8 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "storybook": "STORYBOOK_ON=true storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "snapshot": "npx playwright test -c playwright.snapshot.config.ts"
   },
   "dependencies": {
     "@vee-validate/zod": "^4.12.3",
