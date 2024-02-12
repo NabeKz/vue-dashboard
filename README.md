@@ -70,9 +70,9 @@ npm run test:e2e -- --debug
 npm run lint
 ```
 
-### Playwright deps
+## Snapshot
 
 ```sh
-npx playwright install
-npx playwright install-deps
+npm run build-storybook
+npm run snapshot
 ```

@@ -13,6 +13,7 @@ import config from "./playwright.config"
 export default defineConfig({
   ...config,
   testDir: "./snapshot",
+  reporter: "dot",
   use: {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,

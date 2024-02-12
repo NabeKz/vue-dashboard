@@ -5,8 +5,9 @@
     "vitest.config.*",
     "cypress.config.*",
     "nightwatch.conf.*",
-    "playwright.config.*"
-, "playwright.snapshot.config.ts"  ],
+    "playwright.config.*",
+    "playwright.snapshot.config.ts"
+  ],
   "compilerOptions": {
     "composite": true,
     "noEmit": true,
