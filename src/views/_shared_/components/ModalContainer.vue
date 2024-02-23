@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { FlexBox } from "@/components/parts/box";
-
+import { FlexBox } from "@/components/parts/box"
 
 type Props = {
-  title: string;
-  open: boolean;
-  onClose: () => void;
+  title: string
+  open: boolean
+  onClose: () => void
 }
 
 defineProps<Props>()
@@ -29,7 +28,7 @@ const emits = defineEmits<{ close: [] }>()
   display: flex;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease;
 }
 

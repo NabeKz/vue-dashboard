@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { GoogleFontIcon } from "@/components/parts/icons";
-import { logout } from "@/provider/auth-provider/use-auth";
-import { useRouter } from "vue-router";
+import { GoogleFontIcon } from "@/components/parts/icons"
+import { logout } from "@/provider/auth-provider/use-auth"
+import { useRouter } from "vue-router"
 
 const router = useRouter()
 const onClickLogout = () => {

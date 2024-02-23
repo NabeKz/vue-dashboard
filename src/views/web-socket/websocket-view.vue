@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { FlexBox } from "@/components/parts/box";
-import { TheButton } from "@/components/parts/button";
-import { ref } from "vue";
-import { useWebSocket } from "./use-websocket";
+import { FlexBox } from "@/components/parts/box"
+import { TheButton } from "@/components/parts/button"
+import { ref } from "vue"
+import { useWebSocket } from "./use-websocket"
 
 const open = ref(false)
 const onClick = () => {
   open.value = !open.value
 }
 
-const { dto, ws, } = useWebSocket("wss://echo.websocket.org")
+const { dto, ws } = useWebSocket("wss://echo.websocket.org")
 </script>
 
 <template>

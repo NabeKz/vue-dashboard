@@ -1,7 +1,4 @@
-<script lang="ts" setup>
-
-
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <div class="overlay">
@@ -15,7 +12,7 @@
   display: flex;
   place-content: center;
   place-items: center;
-  background: rgba(0, 0, 0, .7);
+  background: rgba(0, 0, 0, 0.7);
   height: 100vh;
   width: 100vw;
   z-index: 999;
@@ -26,9 +23,7 @@
   aspect-ratio: 1;
   border-radius: 50%;
   background: whitesmoke;
-  --_m:
-    conic-gradient(#0000 10%, #000),
-    linear-gradient(#000 0 0) content-box;
+  --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
   /* safari用 */
   -webkit-mask: var(--_m);
   mask: var(--_m);
@@ -39,7 +34,7 @@
 
 @keyframes l3 {
   to {
-    transform: rotate(1turn)
+    transform: rotate(1turn);
   }
 }
 </style>

@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { FlexBox } from "@/components/parts/box";
-import { TheButton } from "@/components/parts/button";
-import { TextInput } from "@/components/parts/form";
-import { ref } from "vue";
+import { FlexBox } from "@/components/parts/box"
+import { TheButton } from "@/components/parts/button"
+import { TextInput } from "@/components/parts/form"
+import { ref } from "vue"
 
 type Props = {
-  onSubmit: (model: Model) => void;
-  onClose: () => void;
-};
+  onSubmit: (model: Model) => void
+  onClose: () => void
+}
 defineProps<Props>()
-defineEmits<{ close: [], submit: [model: Model] }>()
+defineEmits<{ close: []; submit: [model: Model] }>()
 
 type Model = {
-  name: string;
-  title: string;
-};
+  name: string
+  title: string
+}
 const model = ref<Model>({ name: "", title: "" })
 </script>
 

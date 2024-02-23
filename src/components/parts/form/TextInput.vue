@@ -1,8 +1,8 @@
 <script setup lang="ts">
 type Props = {
-  label: string;
-  name: string;
-  modelValue: string | undefined;
+  label: string
+  name: string
+  modelValue: string | undefined
   errorMessage: string | undefined
 }
 defineProps<Props>()
@@ -10,7 +10,7 @@ defineEmits<{ "update:modelValue": [value: string] }>()
 
 const toValue = (e: Event) => {
   if (e.target instanceof HTMLInputElement) {
-    return e.target.value;
+    return e.target.value
   }
   return ""
 }
@@ -19,7 +19,12 @@ const toValue = (e: Event) => {
 <template>
   <div class="input-field">
     <label :for="name">{{ label }}</label>
-    <input :id="name" v-bind="$attrs" :value=modelValue @input="$emit('update:modelValue', toValue($event))" />
+    <input
+      v-bind="$attrs"
+      @input="$emit('update:modelValue', toValue($event))"
+      :value="modelValue"
+      :id="name"
+    />
     <span class="error">{{ errorMessage }}</span>
   </div>
 </template>

@@ -25,30 +25,30 @@ export const initState = (): State => ({ status: "close", message: "", explicit:
 export const toConnecting = (): State => ({
   status: "connecting",
   explicit: false,
-  message: "connecting"
+  message: "connecting",
 })
 
 export const toOpen = (state: Exclude<State, Open>, ws: WebSocket): State => ({
   status: "open",
   ws,
-  message: state.message || "open"
+  message: state.message || "open",
 })
 
 export const updateMessage = (state: State, message: string): State => ({
   ...state,
-  message
+  message,
 })
 
 export const toClose = (state: State, message?: CLOSE_MESSAGE): State => ({
   status: "close",
   explicit: true,
-  message: message ?? state.message
+  message: message ?? state.message,
 })
 
 const CLOSE_MESSAGE = {
   explicitClose: "explicit close",
   overRetries: "over retry limit",
-  timeout: "timeout"
+  timeout: "timeout",
 } as const
 
 type CLOSE_MESSAGE = (typeof CLOSE_MESSAGE)[keyof typeof CLOSE_MESSAGE]

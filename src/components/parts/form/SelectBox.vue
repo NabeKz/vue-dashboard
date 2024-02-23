@@ -2,16 +2,16 @@
 type OptionItem = {
   value: string
   label: string
-};
+}
 </script>
 
 <script setup lang="ts">
-import { parseTargetValue } from "./parse";
+import { parseTargetValue } from "./parse"
 
 type Props = {
   items: OptionItem[]
   modelValue: OptionItem["value"] | undefined
-};
+}
 defineProps<Props>()
 defineEmits<{ "update:modelValue": [e: string] }>()
 const toValue = (e: Event) => parseTargetValue(e, HTMLSelectElement)

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { FlexBox, SpaceBox } from "@/components/parts/box";
-import { TheButton } from "@/components/parts/button";
-import { TableContainer } from "@/components/parts/table";
-import { ModalContainer } from "@/views/_shared_/components";
-import { ref } from "vue";
-import { AddModal, EditModal } from "./components";
-import type { AnnouncementRepository } from "./repository";
-import { useAnnouncement } from "./use-announcement";
+import { FlexBox, SpaceBox } from "@/components/parts/box"
+import { TheButton } from "@/components/parts/button"
+import { TableContainer } from "@/components/parts/table"
+import { ModalContainer } from "@/views/_shared_/components"
+import { ref } from "vue"
+import { AddModal, EditModal } from "./components"
+import type { AnnouncementRepository } from "./repository"
+import { useAnnouncement } from "./use-announcement"
 const props = defineProps<{ repository: AnnouncementRepository }>()
 const open = ref(false)
-const onClick = () => open.value = !open.value
+const onClick = () => (open.value = !open.value)
 const handleAddAnnouncement = () => {
   const form = { title: "test", content: "aaaa" }
   addAnnouncement(form)

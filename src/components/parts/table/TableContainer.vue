@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="T extends { id: string | number}">
+<script setup lang="ts" generic="T extends { id: string | number }">
 defineProps<{ items: T[] }>()
 </script>
 

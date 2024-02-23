@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { FlexBox } from "@/components/parts/box";
-import { GoogleFontIcon } from "@/components/parts/icons";
+import { FlexBox } from "@/components/parts/box"
+import { GoogleFontIcon } from "@/components/parts/icons"
 
 defineProps<{ slim: boolean }>()
 defineEmits<{ toggle: [] }>()

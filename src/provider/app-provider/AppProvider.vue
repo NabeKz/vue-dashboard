@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import SnackBar from "@/components/layout/SnackBar.vue";
-import LoaderOverlay from "@/components/layout/LoaderOverlay.vue";
-import { ref } from "vue";
+import SnackBar from "@/components/layout/SnackBar.vue"
+import LoaderOverlay from "@/components/layout/LoaderOverlay.vue"
+import { ref } from "vue"
 // TODO: アーキリファクタ
 import { createContext } from "@/provider/use-context"
 
@@ -9,15 +9,19 @@ const message = ref("")
 const open = ref(false)
 const loading = ref(false)
 
-const handleClose = () => open.value = false
+const handleClose = () => (open.value = false)
 
 const handleOpen = (value: string) => {
   open.value = true
   message.value = value
-  setTimeout(handleClose, 2 * 1000);
+  setTimeout(handleClose, 2 * 1000)
 }
 
-const withOverlay = async <T>(command: () => Promise<T>, onSuccess: (data: T) => Promise<void>, onFailure: (e: unknown) => Promise<void>) => {
+const withOverlay = async <T,>(
+  command: () => Promise<T>,
+  onSuccess: (data: T) => Promise<void>,
+  onFailure: (e: unknown) => Promise<void>,
+) => {
   loading.value = true
   try {
     const data = await command()
@@ -38,4 +42,5 @@ createContext({ handleOpen, handleClose }, withOverlay)
   <LoaderOverlay :loading="loading" />
 </template>
 
-<style scoped></style>../auth-provider/use-context
+<style scoped></style>
+../auth-provider/use-context

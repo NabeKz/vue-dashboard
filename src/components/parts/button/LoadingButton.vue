@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref } from "vue"
 import TheButton from "./TheButton.vue"
 
 const props = defineProps<{ command: () => Promise<void> }>()
@@ -8,9 +8,7 @@ const onClick = () => {
   if (loading.value) return
 
   loading.value = true
-  props
-    .command()
-    .finally(() => loading.value = false)
+  props.command().finally(() => (loading.value = false))
 }
 </script>
 
@@ -44,9 +42,7 @@ const onClick = () => {
   aspect-ratio: 1;
   border-radius: 50%;
   background: whitesmoke;
-  --_m:
-    conic-gradient(#0000 10%, #000),
-    linear-gradient(#000 0 0) content-box;
+  --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
   /* safari用 */
   -webkit-mask: var(--_m);
   mask: var(--_m);
@@ -55,10 +51,9 @@ const onClick = () => {
   animation: l3 1s infinite linear;
 }
 
-
 @keyframes l3 {
   to {
-    transform: rotate(1turn)
+    transform: rotate(1turn);
   }
 }
 </style>

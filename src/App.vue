@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { AppProvider, AuthProvider } from "@/provider"
 import { RouterView } from "vue-router"
-import { AuthProvider, AppProvider } from "@/provider"
 </script>
 
 <template>
