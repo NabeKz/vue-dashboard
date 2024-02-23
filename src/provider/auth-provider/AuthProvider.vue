@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { LocalStorage } from "@/lib/infra/auth/storage";
-import router from "@/router";
-import { protectedRoutes } from "@/router/auth-route";
+import { LocalStorage } from "@/lib/infra/auth/storage"
+import router from "@/router"
+import { protectedRoutes } from "@/router/auth-route"
 
 const storage = new LocalStorage()
 
@@ -16,15 +16,16 @@ const isProtected = (path: string) => {
 
 router.beforeEach(async (to, _, next) => {
   if (isProtected(to.path) && !(await isAuthenticated())) {
-    next({ name: "login" });
+    next({ name: "login" })
   } else {
-    next();
+    next()
   }
-});
+})
 </script>
 
 <template>
   <slot></slot>
 </template>
 
-<style scoped></style>../../lib/infra/auth/storage
+<style scoped></style>
+../../lib/infra/auth/storage

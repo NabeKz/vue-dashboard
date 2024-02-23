@@ -2,7 +2,7 @@
 type Kind = "submit" | "caution"
 type Size = "s" | "m" | "l" | "full"
 
-defineProps<{ kind: Kind, size?: Size, disabled?: boolean }>()
+defineProps<{ kind: Kind; size?: Size; disabled?: boolean }>()
 
 const SIZE_DICT = {
   s: "small",
@@ -13,7 +13,11 @@ const SIZE_DICT = {
 </script>
 
 <template>
-  <button class="button pa-8" :class="[kind, size && SIZE_DICT[size]]" :disabled="disabled ?? false">
+  <button
+    class="button pa-8"
+    :class="[kind, size && SIZE_DICT[size]]"
+    :disabled="disabled ?? false"
+  >
     <slot></slot>
   </button>
 </template>
@@ -44,15 +48,15 @@ const SIZE_DICT = {
   }
 
   &.small {
-    width: 60px
+    width: 60px;
   }
 
   &.medium {
-    width: 120px
+    width: 120px;
   }
 
   &.large {
-    width: 240px
+    width: 240px;
   }
 
   &.full {

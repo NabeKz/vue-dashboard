@@ -32,6 +32,6 @@ export const HeatBeatTimer = (callback: Callback, options: Options = {}) => {
 
   return {
     resetTimer,
-    startTimer
+    startTimer,
   }
 }

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { FlexBox } from "@/components/parts/box";
-import { TheButton } from "@/components/parts/button";
-import { TextInput } from "@/components/parts/form";
-import type { Announcement } from "@/views/home/repository";
-import { useAnnouncementForm } from "@/views/home/use-announcement-form";
+import { FlexBox } from "@/components/parts/box"
+import { TheButton } from "@/components/parts/button"
+import { TextInput } from "@/components/parts/form"
+import type { Announcement } from "@/views/home/repository"
+import { useAnnouncementForm } from "@/views/home/use-announcement-form"
 
-const emits = defineEmits<{ close: [], submit: [model: Announcement] }>()
+const emits = defineEmits<{ close: []; submit: [model: Announcement] }>()
 
 const { title, content, errors, handleSubmit } = useAnnouncementForm()
 const onClickSubmit = () => handleSubmit(form => emits("submit", form))

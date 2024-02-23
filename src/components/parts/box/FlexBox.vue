@@ -4,7 +4,7 @@ type Props = {
   gap?: "16" | "24" | "32" | "64"
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 
 <template>
@@ -26,23 +26,23 @@ defineProps<Props>();
   }
 
   &.gap8 {
-    gap: 8px
+    gap: 8px;
   }
 
   &.gap16 {
-    gap: 16px
+    gap: 16px;
   }
 
   &.gap24 {
-    gap: 24px
+    gap: 24px;
   }
 
   &.gap32 {
-    gap: 32px
+    gap: 32px;
   }
 
   &.gap64 {
-    gap: 64px
+    gap: 64px;
   }
 }
 </style>

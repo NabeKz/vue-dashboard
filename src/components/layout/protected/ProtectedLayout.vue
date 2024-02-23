@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { RouterView } from "vue-router";
-import SideMenu from "./SideMenu.vue";
-import TheHeader from "./TheHeader.vue";
-import Main from "./TheMain.vue";
+import { ref } from "vue"
+import { RouterView } from "vue-router"
+import SideMenu from "./SideMenu.vue"
+import TheHeader from "./TheHeader.vue"
+import Main from "./TheMain.vue"
 
 const slim = ref(false)
-const toggle = () => slim.value = !slim.value
+const toggle = () => (slim.value = !slim.value)
 </script>
 
 <template>
@@ -26,15 +26,14 @@ const toggle = () => slim.value = !slim.value
   min-width: 100vw;
   grid-template-areas:
     "header header"
-    "aside main"
-  ;
+    "aside main";
   grid-template-rows: 40px 1fr;
   grid-template-columns: 200px 1fr;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 
   &.slim {
     grid-template-columns: 80px 1fr;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
   }
 
   .header {
