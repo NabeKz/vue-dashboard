@@ -10,7 +10,7 @@ module.exports = {
     "@vue/eslint-config-prettier/skip-formatting",
     "plugin:storybook/recommended"
   ],
-  ignorePatterns: ["*.config.ts", "*.spec.ts"],
+  ignorePatterns: ["*.config.ts", "*.spec.ts", "commitlint.ts"],
   parserOptions: {
     project: ["./tsconfig.app.json"],
     ecmaVersion: "latest"
