@@ -13,7 +13,7 @@ const { repository, storage } = defineProps<{
 
 const handler = useErrorHandler()
 
-const onFailure = () => handler?.handleOpen("ログインできませんでした")
+const onFailure = () => handler.handleOpen("ログインできませんでした")
 const { email, password, errors, handleLogin } = useLogin({ onFailure, repository, storage })
 </script>
 

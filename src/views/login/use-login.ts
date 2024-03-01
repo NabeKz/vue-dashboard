@@ -23,7 +23,7 @@ export const useLogin = ({ onFailure, storage, repository }: Params) => {
   const [password] = defineField("password")
 
   const handleLogin = handleSubmit(form => {
-    withOverlay?.(
+    withOverlay(
       () => repository.login({ id: form.email, password: form.password }),
       async res => {
         storage.setToken(res.token), await router.replace({ name: "home" })
