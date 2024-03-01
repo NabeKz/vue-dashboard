@@ -1,8 +1,8 @@
-import type { TokenStorage } from "@/lib/model/auth/token-storage"
+import type { TokenStorage } from "@/provider/auth-provider/interface"
 
 /** @public */
 export class LocalStorage implements TokenStorage {
-  key = "token"
+  private key = "token"
 
   async getToken(): Promise<string> {
     const token = localStorage.getItem(this.key)

@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { GoogleFontIcon } from "@/components/parts/icons"
-import { logout } from "@/provider/auth-provider/use-auth"
+import { useAuth } from "@/provider/auth-provider/use-auth"
 import { useRouter } from "vue-router"
 
 const router = useRouter()
-const onClickLogout = () => {
-  logout()
-  router.replace({ name: "login" })
+const { logout } = useAuth()
+
+const onClickLogout = async () => {
+  await logout()
+  await router.replace({ name: "login" })
 }
 </script>
 

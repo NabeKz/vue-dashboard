@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { LocalStorage } from "@/lib/infra/auth/storage"
+import { LocalStorage } from "@/infra/auth/storage"
 import router from "@/router"
 import { protectedRoutes } from "@/router/auth-route"
-
+import { provideAuth } from "./use-auth"
+// TODO: DIコンテナ
 const storage = new LocalStorage()
 
 const isAuthenticated = async () => {
@@ -13,6 +14,8 @@ const isAuthenticated = async () => {
 const isProtected = (path: string) => {
   return protectedRoutes.some(route => route.path === path)
 }
+
+provideAuth(storage)
 
 router.beforeEach(async (to, _, next) => {
   if (isProtected(to.path) && !(await isAuthenticated())) {
