@@ -31,4 +31,3 @@ router.beforeEach(async (to, _, next) => {
 </template>
 
 <style scoped></style>
-../../lib/infra/auth/storage
