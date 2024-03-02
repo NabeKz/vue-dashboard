@@ -1,7 +1,8 @@
 import { ProtectedLayout } from "@/components/layout"
-import { AuthRepositoryOnMemory } from "@/lib/infra/auth/on-memory"
+import { AuthRepositoryOnMemory } from "@/infra/auth/on-memory"
 import { AnnouncementRepositoryOnMemory } from "@/views/home/repository"
 
+// TODO: implements di-container
 const Repositories = {
   auth: new AuthRepositoryOnMemory(),
   announcement: new AnnouncementRepositoryOnMemory(),

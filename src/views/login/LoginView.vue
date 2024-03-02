@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { FlexBox } from "@/components/parts/box"
+import { TheButton } from "@/components/parts/button"
 import { TextInput } from "@/components/parts/form"
-import type { AuthRepository } from "@/lib/model/auth/repository"
+import type { AuthRepository, TokenStorage } from "@/provider/auth-provider/interface"
 import { useErrorHandler } from "@/provider/use-context"
 import { useLogin } from "./use-login"
-import type { TokenStorage } from "@/lib/model/auth/token-storage"
-import { TheButton } from "@/components/parts/button"
 
-const { repository, storage } = defineProps<{ repository: AuthRepository; storage: TokenStorage }>()
+const { repository, storage } = defineProps<{
+  repository: AuthRepository
+  storage: TokenStorage
+}>()
+
 const handler = useErrorHandler()
 
-const onFailure = () => handler?.handleOpen("ログインできませんでした")
+const onFailure = () => handler.handleOpen("ログインできませんでした")
 const { email, password, errors, handleLogin } = useLogin({ onFailure, repository, storage })
 </script>
 

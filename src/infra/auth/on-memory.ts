@@ -1,4 +1,4 @@
-import type { AuthRepository } from "@/lib/model/auth/repository"
+import type { AuthRepository } from "@/provider/auth-provider/interface"
 
 const JWT = "abcde"
 const users = [{ id: "test1", password: "test1" }] as const

@@ -20,6 +20,18 @@ export const createContext = (context: Context, withOverlay: OverlayContext) => 
   provide(overlay, withOverlay)
 }
 /** @public */
-export const useErrorHandler = () => inject(snackbar)
+export const useErrorHandler = () => {
+  const ctx = inject(snackbar)
+  if (ctx === undefined) {
+    throw new Error("failed inject")
+  }
+  return ctx
+}
 /** @public */
-export const useOverlay = () => inject(overlay)
+export const useOverlay = () => {
+  const ctx = inject(overlay)
+  if (ctx === undefined) {
+    throw new Error("failed inject")
+  }
+  return ctx
+}

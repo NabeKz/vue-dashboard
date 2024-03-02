@@ -1,5 +1,4 @@
-import type { AuthRepository } from "@/lib/model/auth/repository"
-import type { TokenStorage } from "@/lib/model/auth/token-storage"
+import type { AuthRepository, TokenStorage } from "@/provider/auth-provider/interface"
 import { useOverlay } from "@/provider/use-context"
 import { z } from "@/views/_shared_/custom-validate"
 import { useCustomForm } from "@/views/_shared_/use-custom-form"
@@ -24,7 +23,7 @@ export const useLogin = ({ onFailure, storage, repository }: Params) => {
   const [password] = defineField("password")
 
   const handleLogin = handleSubmit(form => {
-    withOverlay?.(
+    withOverlay(
       () => repository.login({ id: form.email, password: form.password }),
       async res => {
         storage.setToken(res.token), await router.replace({ name: "home" })

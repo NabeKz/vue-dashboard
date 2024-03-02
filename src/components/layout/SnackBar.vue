@@ -5,7 +5,7 @@ import { useErrorHandler } from "@/provider/use-context"
 
 defineProps<{ open: boolean; message: string }>()
 const handler = useErrorHandler()
-const onClickClose = () => handler?.handleClose()
+const onClickClose = () => handler.handleClose()
 </script>
 
 <template>

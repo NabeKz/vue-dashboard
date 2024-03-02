@@ -1,7 +1,7 @@
 import type { Commit, UserConfig } from "@commitlint/types"
 import { RuleConfigSeverity } from "@commitlint/types"
 
-const tags = [":feat:", ":tada:", ":fix:", ":+1:", ":bug:"]
+const tags = [":feat:", ":tada:", ":fix:", ":+1:"]
 
 const customRule = ({ header }: Commit) => {
   console.debug("emoji prefixをつけてください")
