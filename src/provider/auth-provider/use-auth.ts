@@ -9,8 +9,8 @@ type AuthContext = {
 const key = Symbol() as InjectionKey<AuthContext>
 
 export const provideAuth = (storage: TokenStorage) => {
-  const saveToken = storage.setToken
-  const logout = storage.removeToken
+  const saveToken = (token: string) => storage.setToken(token)
+  const logout = () => storage.removeToken()
 
   provide(key, { saveToken, logout })
 }

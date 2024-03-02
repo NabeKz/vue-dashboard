@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import SnackBar from "@/components/layout/SnackBar.vue"
 import LoaderOverlay from "@/components/layout/LoaderOverlay.vue"
+import SnackBar from "@/components/layout/SnackBar.vue"
 import { ref } from "vue"
 // TODO: アーキリファクタ
 import { createContext } from "@/provider/use-context"
@@ -43,4 +43,3 @@ createContext({ handleOpen, handleClose }, withOverlay)
 </template>
 
 <style scoped></style>
-../auth-provider/use-context
