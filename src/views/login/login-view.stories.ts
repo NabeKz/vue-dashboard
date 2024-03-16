@@ -1,7 +1,7 @@
 import { AuthRepositoryOnMemory } from "@/infra/auth/on-memory"
 import { LocalStorage } from "@/infra/auth/storage"
 import { publicLayout, useMockRouter } from "@/test/helper"
-import { expect, userEvent, within } from "@storybook/test"
+import { expect, userEvent, waitFor, within } from "@storybook/test"
 import { type Meta, type StoryObj } from "@storybook/vue3"
 import LoginView from "./LoginView.vue"
 
@@ -43,10 +43,12 @@ export const LoginFailure: Story = {
     await userEvent.type(canvas.getByLabelText("password"), "password2")
 
     await userEvent.click(canvas.getByRole("button"))
-    // vitest実行時はuseFakeTimerでmockすること
-    await new Promise(resolve => setTimeout(resolve, 1000))
-
-    const snackbar = await canvas.findByText("ログインできませんでした")
-    expect(snackbar).toBeInTheDocument(), { timeout: 3000 }
+    await waitFor(
+      async () => {
+        const snackbar = await canvas.findByText("ログインできませんでした")
+        expect(snackbar).toBeInTheDocument()
+      },
+      { timeout: 2 * 1000 },
+    )
   },
 }

@@ -1,17 +1,22 @@
 <script setup lang="ts">
+import { computed } from "vue"
+
 type Props = {
   label: string
   name: string
   errorMessage: string | undefined
+  mask?: true
 }
-defineProps<Props>()
+
+const props = defineProps<Props>()
 const model = defineModel<string | undefined>({ required: true })
+const type = computed(() => (props.mask ? "password" : "text"))
 </script>
 
 <template>
   <div class="input-field">
     <label :for="name">{{ label }}</label>
-    <input v-model="model" :id="name" v-bind="$attrs" />
+    <input :type="type" v-model="model" :id="name" />
     <span class="error">{{ errorMessage }}</span>
   </div>
 </template>

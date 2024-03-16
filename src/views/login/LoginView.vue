@@ -24,7 +24,7 @@ const { email, password, errors, handleLogin } = useLogin({ onFailure, repositor
     <form @submit.prevent>
       <TextInput name="email" label="email" v-model="email" :error-message="errors.email" />
       <TextInput
-        type="password"
+        mask
         name="password"
         label="password"
         v-model="password"
