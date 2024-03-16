@@ -26,9 +26,13 @@ export const useLogin = ({ onFailure, storage, repository }: Params) => {
     withOverlay(
       () => repository.login({ id: form.email, password: form.password }),
       async res => {
-        storage.setToken(res.token), await router.replace({ name: "home" })
+        storage.setToken(res.token)
+        await router.replace({ name: "home" })
       },
-      async () => onFailure(),
+      async e => {
+        console.debug(e)
+        onFailure()
+      },
     )
   })
 

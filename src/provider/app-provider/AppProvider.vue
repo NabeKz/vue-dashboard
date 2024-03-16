@@ -27,6 +27,7 @@ const withOverlay = async <T,>(
     const data = await command()
     await onSuccess(data)
   } catch (e) {
+    if (import.meta.env.DEV) console.error(e)
     await onFailure(e)
   } finally {
     loading.value = false

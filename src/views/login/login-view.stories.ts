@@ -1,15 +1,15 @@
 import { AuthRepositoryOnMemory } from "@/infra/auth/on-memory"
 import { LocalStorage } from "@/infra/auth/storage"
+import { publicLayout, useMockRouter } from "@/test/helper"
 import { expect, userEvent, within } from "@storybook/test"
 import { type Meta, type StoryObj } from "@storybook/vue3"
-import { vueRouter } from "storybook-vue3-router"
 import LoginView from "./LoginView.vue"
 
 const meta = {
-  title: "Views/LoginView",
   component: LoginView,
   tags: ["autodocs"],
-  decorators: [vueRouter(), () => ({ template: "<PublicLayout><story /></PublicLayout>" })],
+  // decorators: [vueRouter(), publicLayout],
+  decorators: [useMockRouter, publicLayout],
 } satisfies Meta<typeof LoginView>
 
 export default meta
