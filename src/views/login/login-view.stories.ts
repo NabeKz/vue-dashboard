@@ -1,14 +1,13 @@
 import { AuthRepositoryOnMemory } from "@/infra/auth/on-memory"
 import { LocalStorage } from "@/infra/auth/storage"
 import { publicLayout, useMockRouter } from "@/test/helper"
-import { expect, userEvent, waitFor, within } from "@storybook/test"
+import { expect, userEvent, within } from "@storybook/test"
 import { type Meta, type StoryObj } from "@storybook/vue3"
 import LoginView from "./LoginView.vue"
 
 const meta = {
   component: LoginView,
   tags: ["autodocs"],
-  // decorators: [vueRouter(), publicLayout],
   decorators: [useMockRouter, publicLayout],
 } satisfies Meta<typeof LoginView>
 
@@ -19,10 +18,6 @@ type Story = StoryObj<typeof meta>
 const defaultArgs = {
   repository: new AuthRepositoryOnMemory(),
   storage: new LocalStorage(),
-}
-
-export const Normal: Story = {
-  args: { ...defaultArgs },
 }
 
 export const LoginSuccess: Story = {
@@ -43,12 +38,8 @@ export const LoginFailure: Story = {
     await userEvent.type(canvas.getByLabelText("password"), "password2")
 
     await userEvent.click(canvas.getByRole("button"))
-    await waitFor(
-      async () => {
-        const snackbar = await canvas.findByText("ログインできませんでした")
-        expect(snackbar).toBeInTheDocument()
-      },
-      { timeout: 2 * 1000 },
-    )
+
+    const snackbar = await canvas.findByText("ログインできませんでした", {}, { timeout: 2 * 1000 })
+    expect(snackbar).toBeInTheDocument()
   },
 }

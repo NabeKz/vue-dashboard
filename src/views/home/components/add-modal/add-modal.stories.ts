@@ -1,3 +1,4 @@
+import { expect, fn, userEvent, waitFor, within } from "@storybook/test"
 import type { Meta, StoryObj } from "@storybook/vue3"
 import AddModal from "./AddModal.vue"
 
@@ -5,22 +6,75 @@ const meta = {
   title: "Home/AddModal",
   component: AddModal,
   tags: ["autodocs"],
+  args: {
+    onSubmit: fn(),
+    onClose: fn(),
+  },
 } satisfies Meta<typeof AddModal>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 // More on interaction testing: https://storybook.js.org/docs/writing-tests/interaction-testing
-export const Normal: Story = {
+export const Static: Story = {
   args: {},
-  // play: async ({ canvasElement }: any) => {
-  //   const canvas = within(canvasElement)
-  //   const loginButton = canvas.getByRole("button", { name: /Log in/i })
-  //   await expect(loginButton).toBeInTheDocument()
-  //   await userEvent.click(loginButton)
-  //   await expect(loginButton).not.toBeInTheDocument()
+}
 
-  //   const logoutButton = canvas.getByRole("button", { name: /Log out/i })
-  //   await expect(logoutButton).toBeInTheDocument()
-  // }
+export const ValidInput: Story = {
+  args: {
+    onSubmit: fn(),
+  },
+  play: async ({ canvasElement, step, args }) => {
+    const canvas = within(canvasElement)
+
+    await step("エラーがない場合はsubmitが発火すること", async () => {
+      await userEvent.type(canvas.getByLabelText("title"), "hoge")
+      await userEvent.type(canvas.getByLabelText("content"), "fuga")
+
+      await userEvent.click(canvas.getByRole("button", { name: "submit" }))
+
+      await waitFor(() => {
+        expect(args.onSubmit).toBeCalled()
+      })
+    })
+  },
+}
+
+export const InvalidInput: Story = {
+  play: async ({ canvasElement, args, step }) => {
+    const canvas = within(canvasElement)
+
+    await step("未入力でsubmitを押下した場合はエラーがでること", async () => {
+      await userEvent.click(canvas.getByRole("button", { name: "submit" }))
+      const error = await canvas.findAllByText("必須項目です")
+      expect(error.length).toBe(2)
+    })
+
+    await step("titleが空文字の場合にエラーがでること", async () => {
+      const input = canvas.getByLabelText("title")
+      await userEvent.type(input, "a")
+      await userEvent.type(input, "{backspace}")
+
+      const error = await canvas.findAllByText("必須項目です")
+      await expect(error[0]).toBeInTheDocument()
+    })
+
+    await step("contentが空文字の場合にエラーがでること", async () => {
+      const input = canvas.getByLabelText("content")
+      await userEvent.type(input, "a")
+      await userEvent.type(input, "{backspace}")
+
+      const error = await canvas.findAllByText("必須項目です")
+      await expect(error[1]).toBeInTheDocument()
+    })
+
+    await step("エラーがでている場合はsubmitが発火しないこと", async () => {
+      const submit = canvas.getByRole("button", { name: "submit" })
+      await userEvent.click(submit)
+
+      await waitFor(() => {
+        expect(args.onSubmit).not.toBeCalled()
+      })
+    })
+  },
 }

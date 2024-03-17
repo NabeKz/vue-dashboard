@@ -8,7 +8,7 @@ import { useAnnouncementForm } from "@/views/home/use-announcement-form"
 const emits = defineEmits<{ close: []; submit: [model: Announcement] }>()
 
 const { title, content, errors, handleSubmit } = useAnnouncementForm()
-const onClickSubmit = () => handleSubmit(form => emits("submit", form))
+const onClickSubmit = handleSubmit(form => emits("submit", form))
 </script>
 
 <template>

@@ -30,3 +30,7 @@ export const protectedLayout = () => ({
     </ProtectedLayout>
   `,
 })
+
+export const getErrorField = (el: HTMLElement) => {
+  return el.nextSibling!
+}
