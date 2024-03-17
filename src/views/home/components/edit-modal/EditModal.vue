@@ -2,22 +2,24 @@
 import { FlexBox } from "@/components/parts/box"
 import { TheButton } from "@/components/parts/button"
 import { TextInput } from "@/components/parts/form"
+import { useCustomForm } from "@/views/_shared_/use-custom-form"
 import type { AnnouncementWithId } from "@/views/home/model"
-import { useAnnouncementEditForm } from "./use-announcement-form"
+import { schema } from "@/views/home/schema"
 
 const props = defineProps<{
-  model: AnnouncementWithId | undefined
+  model: AnnouncementWithId
 }>()
 
 const emits = defineEmits<{
   close: []
   submit: [model: AnnouncementWithId]
 }>()
+const { defineField, handleSubmit, errors } = useCustomForm(schema, props.model)
 
-const { title, content, errors, onSubmit } = useAnnouncementEditForm(
-  props.model,
-  (form: AnnouncementWithId) => emits("submit", form),
-)
+const [title] = defineField("title")
+const [content] = defineField("content")
+
+const onSubmit = handleSubmit(form => emits("submit", { ...form, id: props.model.id }))
 </script>
 
 <template>
@@ -27,8 +29,13 @@ const { title, content, errors, onSubmit } = useAnnouncementEditForm(
     </header>
     <form @submit.prevent>
       <FlexBox class="column" gap="24">
-        <TextInput name="name" label="name" v-model="title" :error-message="errors.title" />
-        <TextInput name="title" label="title" v-model="content" :error-message="errors.content" />
+        <TextInput name="title" label="title" v-model="title" :error-message="errors.title" />
+        <TextInput
+          name="content"
+          label="content"
+          v-model="content"
+          :error-message="errors.content"
+        />
         <FlexBox class="row buttons" gap="24">
           <TheButton kind="submit" @click="onSubmit">submit</TheButton>
           <TheButton kind="submit" @click="$emit('close')">close</TheButton>

@@ -2,8 +2,9 @@
 import { FlexBox, SpaceBox } from "@/components/parts/box"
 import { TheButton } from "@/components/parts/button"
 import { TableContainer } from "@/components/parts/table"
+import { useOverlay } from "@/provider/use-context"
 import { ModalContainer } from "@/views/_shared_/components"
-import { onMounted, ref } from "vue"
+import { onMounted } from "vue"
 import { AddModal, EditModal } from "./components"
 import type { AnnouncementRepository } from "./repository"
 import { useAnnouncement } from "./use-announcement"
@@ -12,11 +13,10 @@ const props = defineProps<{
   repository: AnnouncementRepository
 }>()
 
-const open = ref(false)
-const { announcementList, selected, onCloseEditModal, onOpenEditModal } = useAnnouncement(
-  props.repository,
-  onMounted,
-)
+const withOverlay = useOverlay()
+
+const { modalState, announcementList, onCloseModal, onOpenAddModal, onOpenEditModal } =
+  useAnnouncement(props.repository, onMounted, withOverlay)
 </script>
 
 <template>
@@ -24,7 +24,7 @@ const { announcementList, selected, onCloseEditModal, onOpenEditModal } = useAnn
     home
     <FlexBox class="column">
       <FlexBox class="row">
-        <TheButton kind="submit" @click="open = true">新規登録</TheButton>
+        <TheButton kind="submit" @click="onOpenAddModal">新規登録</TheButton>
       </FlexBox>
     </FlexBox>
     <SpaceBox h="10px" />
@@ -46,11 +46,14 @@ const { announcementList, selected, onCloseEditModal, onOpenEditModal } = useAnn
     </TableContainer>
   </FlexBox>
 
-  <ModalContainer title="aaa" :open="open" @close="open = false">
-    <AddModal @submit="console.debug" @close="open = false" />
+  <ModalContainer title="登録モーダル" :open="modalState.isAdd" @close="onCloseModal">
+    <AddModal @submit="console.debug" @close="onCloseModal" />
   </ModalContainer>
-  <ModalContainer title="aaa" :open="!!selected" @close="onCloseEditModal">
-    <EditModal :model="selected" @close="onCloseEditModal" />
+
+  <ModalContainer title="編集モーダル" :open="modalState.isEdit" @close="onCloseModal">
+    <template v-if="modalState.data">
+      <EditModal :model="modalState.data" @close="onCloseModal" />
+    </template>
   </ModalContainer>
 </template>
 

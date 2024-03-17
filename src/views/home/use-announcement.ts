@@ -1,16 +1,49 @@
-import { ref } from "vue"
+import { type OverlayContext } from "@/provider/use-context"
+import { computed, ref } from "vue"
 import type { Announcement, AnnouncementWithId } from "./model"
 import type { AnnouncementRepository } from "./repository"
 
+type ModalState =
+  | {
+      mode: "close"
+      data?: never
+    }
+  | {
+      mode: "add"
+      data?: never
+    }
+  | {
+      mode: "edit"
+      data: AnnouncementWithId
+    }
+
+// TODO: CRUDで分割
 export const useAnnouncement = (
   repository: AnnouncementRepository,
   onMounted: (action: () => void) => void,
+  withOverlay: OverlayContext,
 ) => {
+  const _modalState = ref<ModalState>({ mode: "close" })
   const announcementList = ref<AnnouncementWithId[]>([])
-  const selected = ref<AnnouncementWithId>()
 
-  const onOpenEditModal = (data: AnnouncementWithId) => (selected.value = data)
-  const onCloseEditModal = () => (selected.value = undefined)
+  const modalState = computed(() => ({
+    isAdd: _modalState.value.mode === "add",
+    isEdit: _modalState.value.mode === "edit",
+    data: _modalState.value.data,
+  }))
+
+  const onOpenAddModal = () => (_modalState.value = { mode: "add" })
+  const onOpenEditModal = async (item: AnnouncementWithId) => {
+    await withOverlay(
+      () => repository.findById(item.id),
+      async data => {
+        _modalState.value = { mode: "edit", data }
+      },
+      async e => console.error(e),
+    )
+  }
+
+  const onCloseModal = () => (_modalState.value = { mode: "close" })
 
   const addAnnouncement = (announcement: Announcement) => {
     repository
@@ -21,17 +54,21 @@ export const useAnnouncement = (
   }
 
   onMounted(async () => {
-    repository
-      .list()
-      .then(data => (announcementList.value = [...data]))
-      .catch(err => console.error(err))
+    await withOverlay(
+      () => repository.list(),
+      async data => {
+        announcementList.value = [...data]
+      },
+      async err => console.error(err),
+    )
   })
 
   return {
+    modalState,
     announcementList,
-    selected,
+    onCloseModal,
     addAnnouncement,
+    onOpenAddModal,
     onOpenEditModal,
-    onCloseEditModal,
   }
 }

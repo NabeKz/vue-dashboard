@@ -6,7 +6,8 @@ type Context = {
   handleClose: () => void
 }
 
-type OverlayContext = <T>(
+/** @public */
+export type OverlayContext = <T>(
   command: () => Promise<T>,
   onSuccess: (data: T) => Promise<void>,
   onFailure: (e: unknown) => Promise<void>,

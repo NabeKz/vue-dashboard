@@ -6,10 +6,4 @@ export const schema = z.object({
   content: z.string.required(),
 })
 
-export const editSchema = z.object({
-  id: z.number.required(),
-  title: z.string.required(),
-  content: z.string.required(),
-})
-
 export type Schema = TypeOf<typeof schema>
