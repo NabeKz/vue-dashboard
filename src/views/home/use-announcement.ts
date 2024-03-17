@@ -1,8 +1,16 @@
-import { onMounted, ref } from "vue"
-import type { Announcement, AnnouncementRepository, AnnouncementWithId } from "./repository"
+import { ref } from "vue"
+import type { Announcement, AnnouncementWithId } from "./model"
+import type { AnnouncementRepository } from "./repository"
 
-export const useAnnouncement = (repository: AnnouncementRepository) => {
+export const useAnnouncement = (
+  repository: AnnouncementRepository,
+  onMounted: (action: () => void) => void,
+) => {
   const announcementList = ref<AnnouncementWithId[]>([])
+  const selected = ref<AnnouncementWithId>()
+
+  const onOpenEditModal = (data: AnnouncementWithId) => (selected.value = data)
+  const onCloseEditModal = () => (selected.value = undefined)
 
   const addAnnouncement = (announcement: Announcement) => {
     repository
@@ -12,7 +20,7 @@ export const useAnnouncement = (repository: AnnouncementRepository) => {
       .catch(err => console.error(err))
   }
 
-  onMounted(() => {
+  onMounted(async () => {
     repository
       .list()
       .then(data => (announcementList.value = [...data]))
@@ -21,20 +29,9 @@ export const useAnnouncement = (repository: AnnouncementRepository) => {
 
   return {
     announcementList,
+    selected,
     addAnnouncement,
+    onOpenEditModal,
+    onCloseEditModal,
   }
-}
-
-export const useFetchData = <T>(fn: () => Promise<T>) => {
-  const data = ref<T>()
-
-  onMounted(async () => {
-    try {
-      data.value = await fn()
-    } catch (err) {
-      console.debug(err)
-    }
-  })
-
-  return data
 }

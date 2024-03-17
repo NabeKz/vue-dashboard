@@ -3,18 +3,20 @@ import { FlexBox, SpaceBox } from "@/components/parts/box"
 import { TheButton } from "@/components/parts/button"
 import { TableContainer } from "@/components/parts/table"
 import { ModalContainer } from "@/views/_shared_/components"
-import { ref } from "vue"
+import { onMounted, ref } from "vue"
 import { AddModal, EditModal } from "./components"
 import type { AnnouncementRepository } from "./repository"
 import { useAnnouncement } from "./use-announcement"
-const props = defineProps<{ repository: AnnouncementRepository }>()
+
+const props = defineProps<{
+  repository: AnnouncementRepository
+}>()
+
 const open = ref(false)
-const onClick = () => (open.value = !open.value)
-const handleAddAnnouncement = () => {
-  const form = { title: "test", content: "aaaa" }
-  addAnnouncement(form)
-}
-const { addAnnouncement, announcementList } = useAnnouncement(props.repository)
+const { announcementList, selected, onCloseEditModal, onOpenEditModal } = useAnnouncement(
+  props.repository,
+  onMounted,
+)
 </script>
 
 <template>
@@ -22,7 +24,7 @@ const { addAnnouncement, announcementList } = useAnnouncement(props.repository)
     home
     <FlexBox class="column">
       <FlexBox class="row">
-        <TheButton kind="submit" @click="handleAddAnnouncement">新規登録</TheButton>
+        <TheButton kind="submit" @click="open = true">新規登録</TheButton>
       </FlexBox>
     </FlexBox>
     <SpaceBox h="10px" />
@@ -38,17 +40,17 @@ const { addAnnouncement, announcementList } = useAnnouncement(props.repository)
         <td>{{ item.title }}</td>
         <td>{{ item.content }}</td>
         <td>
-          <TheButton kind="submit" @click="onClick">編集</TheButton>
+          <TheButton kind="submit" @click="() => onOpenEditModal(item)">編集</TheButton>
         </td>
       </template>
     </TableContainer>
   </FlexBox>
 
   <ModalContainer title="aaa" :open="open" @close="open = false">
-    <AddModal @close="open = false" @submit="console.debug" />
+    <AddModal @submit="console.debug" @close="open = false" />
   </ModalContainer>
-  <ModalContainer title="aaa" :open="open" @close="open = false">
-    <EditModal @close="open = false" @submit="console.debug" />
+  <ModalContainer title="aaa" :open="!!selected" @close="onCloseEditModal">
+    <EditModal :model="selected" @submit="console.debug" @close="open = false" />
   </ModalContainer>
 </template>
 

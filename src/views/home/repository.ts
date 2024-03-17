@@ -1,13 +1,7 @@
-export type WithId<T> = T & { id: number }
-
-export type Announcement = {
-  title: string
-  content: string
-}
-export type AnnouncementWithId = Announcement & { id: number }
+import type { Announcement, AnnouncementWithId } from "./model"
 
 export interface AnnouncementRepository {
-  list(): Promise<WithId<Announcement>[]>
+  list(): Promise<AnnouncementWithId[]>
   save(announcement: Announcement): Promise<void>
 }
 /** @public */
