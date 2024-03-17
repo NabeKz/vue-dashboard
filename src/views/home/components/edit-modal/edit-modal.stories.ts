@@ -1,3 +1,4 @@
+import { fn } from "@storybook/test"
 import type { Meta, StoryObj } from "@storybook/vue3"
 import EditModal from "./EditModal.vue"
 
@@ -11,7 +12,8 @@ type Story = StoryObj<typeof meta>
 
 export const Primay: Story = {
   args: {
-    model: undefined,
+    data: { id: 1, title: "aa", content: "bb" },
+    onUpdate: fn(),
   },
   play: async ({ canvasElement }) => {},
 }

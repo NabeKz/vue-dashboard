@@ -45,7 +45,6 @@ export const useInteraction = (
   const onCloseModal = () => (_modalState.value = { mode: "close" })
 
   const fetchData = async () => {
-    onCloseModal()
     await withOverlay(
       () => repository.list(),
       async data => {
@@ -55,10 +54,15 @@ export const useInteraction = (
     )
   }
 
+  const refresh = async () => {
+    onCloseModal()
+    await fetchData()
+  }
+
   onMounted(async () => await fetchData())
 
   return {
-    fetchData,
+    refresh,
     modalState,
     announcementList,
     onUpdate,

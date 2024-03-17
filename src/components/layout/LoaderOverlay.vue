@@ -5,7 +5,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="overlay" v-show="loading">
+  <div class="overlay" v-if="loading" data-testid="overlay">
     <div class="loader"></div>
   </div>
 </template>
@@ -19,7 +19,6 @@ defineProps<{
   background: rgba(0, 0, 0, 0.2);
   height: 100vh;
   width: 100vw;
-  z-index: 999;
 }
 
 .loader {
@@ -34,6 +33,7 @@ defineProps<{
   -webkit-mask-composite: source-out;
   mask-composite: subtract;
   animation: l3 1s infinite linear;
+  z-index: 999;
 }
 
 @keyframes l3 {

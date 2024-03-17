@@ -18,7 +18,7 @@ const withOverlay = useOverlay()
 const {
   modalState,
   announcementList,
-  fetchData,
+  refresh,
   onUpdate,
   onCloseModal,
   onOpenAddModal,
@@ -62,7 +62,7 @@ const {
       <EditModal
         :data="modalState.data"
         :onUpdate="onUpdate"
-        @success="fetchData"
+        @success="refresh"
         @close="onCloseModal"
       />
     </template>

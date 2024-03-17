@@ -40,7 +40,6 @@ onUnmounted(() => (mounted.value = false))
   width: 500px;
   height: 500px;
   background: white;
-  z-index: 1000;
   margin: auto;
 }
 
