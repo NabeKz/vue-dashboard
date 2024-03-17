@@ -3,16 +3,21 @@ import { FlexBox } from "@/components/parts/box"
 import { TheButton } from "@/components/parts/button"
 import { TextInput } from "@/components/parts/form"
 import type { AnnouncementWithId } from "@/views/home/model"
-import { ref } from "vue"
+import { useAnnouncementEditForm } from "./use-announcement-form"
 
 const props = defineProps<{
   model: AnnouncementWithId | undefined
 }>()
 
-const emits = defineEmits<{ close: []; submit: [model: AnnouncementWithId] }>()
+const emits = defineEmits<{
+  close: []
+  submit: [model: AnnouncementWithId]
+}>()
 
-const model = ref({ ...props.model })
-const handleEmit = (data: AnnouncementWithId | undefined) => data && emits("submit", data)
+const { title, content, errors, onSubmit } = useAnnouncementEditForm(
+  props.model,
+  (form: AnnouncementWithId) => emits("submit", form),
+)
 </script>
 
 <template>
@@ -22,10 +27,10 @@ const handleEmit = (data: AnnouncementWithId | undefined) => data && emits("subm
     </header>
     <form @submit.prevent>
       <FlexBox class="column" gap="24">
-        <TextInput name="name" label="name" v-model="model.title" :error-message="''" />
-        <TextInput name="title" label="title" v-model="model.title" :error-message="''" />
+        <TextInput name="name" label="name" v-model="title" :error-message="errors.title" />
+        <TextInput name="title" label="title" v-model="content" :error-message="errors.content" />
         <FlexBox class="row buttons" gap="24">
-          <TheButton kind="submit" @click="handleEmit">submit</TheButton>
+          <TheButton kind="submit" @click="onSubmit">submit</TheButton>
           <TheButton kind="submit" @click="$emit('close')">close</TheButton>
         </FlexBox>
       </FlexBox>

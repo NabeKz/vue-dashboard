@@ -50,7 +50,7 @@ const { announcementList, selected, onCloseEditModal, onOpenEditModal } = useAnn
     <AddModal @submit="console.debug" @close="open = false" />
   </ModalContainer>
   <ModalContainer title="aaa" :open="!!selected" @close="onCloseEditModal">
-    <EditModal :model="selected" @submit="console.debug" @close="open = false" />
+    <EditModal :model="selected" @close="onCloseEditModal" />
   </ModalContainer>
 </template>
 

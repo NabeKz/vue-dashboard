@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { FlexBox } from "@/components/parts/box"
+import { onMounted, onUnmounted, ref } from "vue"
 
 type Props = {
   title: string
@@ -9,10 +10,14 @@ type Props = {
 
 defineProps<Props>()
 const emits = defineEmits<{ close: [] }>()
+
+const mounted = ref(false)
+onMounted(() => (mounted.value = true))
+onUnmounted(() => (mounted.value = false))
 </script>
 
 <template>
-  <Teleport to="#modal-overlay">
+  <Teleport to="#modal-overlay" v-if="mounted">
     <Transition name="modal" mode="out-in">
       <div v-if="open" class="modal-mask" @click.self="emits('close')">
         <FlexBox class="column modal-content">

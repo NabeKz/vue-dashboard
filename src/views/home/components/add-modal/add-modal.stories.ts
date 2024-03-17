@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from "@storybook/vue3"
 import AddModal from "./AddModal.vue"
 
 const meta = {
-  title: "Home/AddModal",
   component: AddModal,
   tags: ["autodocs"],
   args: {
