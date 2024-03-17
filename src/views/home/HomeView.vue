@@ -7,7 +7,7 @@ import { ModalContainer } from "@/views/_shared_/components"
 import { onMounted } from "vue"
 import { AddModal, EditModal } from "./components"
 import type { AnnouncementRepository } from "./repository"
-import { useAnnouncement } from "./use-announcement"
+import { useInteraction } from "./use-interaction"
 
 const props = defineProps<{
   repository: AnnouncementRepository
@@ -15,8 +15,15 @@ const props = defineProps<{
 
 const withOverlay = useOverlay()
 
-const { modalState, announcementList, onCloseModal, onOpenAddModal, onOpenEditModal } =
-  useAnnouncement(props.repository, onMounted, withOverlay)
+const {
+  modalState,
+  announcementList,
+  fetchData,
+  onUpdate,
+  onCloseModal,
+  onOpenAddModal,
+  onOpenEditModal,
+} = useInteraction(props.repository, onMounted, withOverlay)
 </script>
 
 <template>
@@ -52,7 +59,12 @@ const { modalState, announcementList, onCloseModal, onOpenAddModal, onOpenEditMo
 
   <ModalContainer title="編集モーダル" :open="modalState.isEdit" @close="onCloseModal">
     <template v-if="modalState.data">
-      <EditModal :model="modalState.data" @close="onCloseModal" />
+      <EditModal
+        :data="modalState.data"
+        :onUpdate="onUpdate"
+        @success="fetchData"
+        @close="onCloseModal"
+      />
     </template>
   </ModalContainer>
 </template>

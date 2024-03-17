@@ -4,6 +4,7 @@ export interface AnnouncementRepository {
   list(): Promise<AnnouncementWithId[]>
   findById(id: AnnouncementWithId["id"]): Promise<AnnouncementWithId>
   save(announcement: Announcement): Promise<void>
+  update(announcement: Announcement): Promise<void>
 }
 /** @public */
 export class AnnouncementRepositoryOnMemory implements AnnouncementRepository {
@@ -22,11 +23,19 @@ export class AnnouncementRepositoryOnMemory implements AnnouncementRepository {
     this._list.push({ id, ...announcement })
   }
 
+  async update(announcement: AnnouncementWithId) {
+    const index = this._list.findIndex(item => item.id === announcement.id)
+    if (index < 0) {
+      throw new Error("not found")
+    }
+    this._list.splice(index, 1, announcement)
+  }
+
   async findById(id: AnnouncementWithId["id"]) {
     const target = this._list.find(item => item.id === id)
     if (!target) {
       throw new Error("not found")
     }
-    return structuredClone(target)
+    return { ...target }
   }
 }

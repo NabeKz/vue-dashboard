@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-defineProps<{ loading: boolean }>()
+defineProps<{
+  loading: boolean
+}>()
 </script>
 
 <template>

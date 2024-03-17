@@ -2,24 +2,12 @@
 import { FlexBox } from "@/components/parts/box"
 import { TheButton } from "@/components/parts/button"
 import { TextInput } from "@/components/parts/form"
-import { useCustomForm } from "@/views/_shared_/use-custom-form"
-import type { AnnouncementWithId } from "@/views/home/model"
-import { schema } from "@/views/home/schema"
+import type { Emits, Props } from "./types"
+import { useEditForm } from "./use-edit-form"
 
-const props = defineProps<{
-  model: AnnouncementWithId
-}>()
-
-const emits = defineEmits<{
-  close: []
-  submit: [model: AnnouncementWithId]
-}>()
-const { defineField, handleSubmit, errors } = useCustomForm(schema, props.model)
-
-const [title] = defineField("title")
-const [content] = defineField("content")
-
-const onSubmit = handleSubmit(form => emits("submit", { ...form, id: props.model.id }))
+const props = defineProps<Props>()
+const emits = defineEmits<Emits>()
+const { title, content, errors, onSubmit } = useEditForm(props, emits)
 </script>
 
 <template>

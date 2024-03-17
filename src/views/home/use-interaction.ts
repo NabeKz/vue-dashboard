@@ -17,8 +17,7 @@ type ModalState =
       data: AnnouncementWithId
     }
 
-// TODO: CRUDで分割
-export const useAnnouncement = (
+export const useInteraction = (
   repository: AnnouncementRepository,
   onMounted: (action: () => void) => void,
   withOverlay: OverlayContext,
@@ -42,18 +41,11 @@ export const useAnnouncement = (
       async e => console.error(e),
     )
   }
-
+  const onUpdate = (data: Announcement) => repository.update(data)
   const onCloseModal = () => (_modalState.value = { mode: "close" })
 
-  const addAnnouncement = (announcement: Announcement) => {
-    repository
-      .save(announcement)
-      .then(() => repository.list())
-      .then(data => (announcementList.value = data))
-      .catch(err => console.error(err))
-  }
-
-  onMounted(async () => {
+  const fetchData = async () => {
+    onCloseModal()
     await withOverlay(
       () => repository.list(),
       async data => {
@@ -61,13 +53,16 @@ export const useAnnouncement = (
       },
       async err => console.error(err),
     )
-  })
+  }
+
+  onMounted(async () => await fetchData())
 
   return {
+    fetchData,
     modalState,
     announcementList,
+    onUpdate,
     onCloseModal,
-    addAnnouncement,
     onOpenAddModal,
     onOpenEditModal,
   }
