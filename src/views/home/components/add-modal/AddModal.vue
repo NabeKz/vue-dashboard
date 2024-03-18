@@ -2,10 +2,10 @@
 import { FlexBox } from "@/components/parts/box"
 import { TheButton } from "@/components/parts/button"
 import { TextInput } from "@/components/parts/form"
-import type { Announcement } from "@/views/home/model"
+import type { Emits } from "./types"
 import { useAnnouncementForm } from "./use-announcement-form"
 
-const emits = defineEmits<{ close: []; submit: [model: Announcement] }>()
+const emits = defineEmits<Emits>()
 
 const { title, content, errors, handleSubmit } = useAnnouncementForm()
 const onClickSubmit = handleSubmit(form => emits("submit", form))

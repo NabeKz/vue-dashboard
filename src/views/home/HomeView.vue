@@ -10,6 +10,7 @@ import type { AnnouncementRepository } from "./repository"
 import { useInteraction } from "./use-interaction"
 
 const props = defineProps<{
+  /** hogehoge */
   repository: AnnouncementRepository
 }>()
 

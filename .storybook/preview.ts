@@ -1,7 +1,7 @@
+import { useMockAuth } from "@/test/helper"
 import { type Preview } from "@storybook/vue3"
 import { AppProvider } from "../src/provider"
 
-import { useMockAuth } from "@/test/helper"
 import "../src/assets/main.css"
 
 const preview: Preview = {

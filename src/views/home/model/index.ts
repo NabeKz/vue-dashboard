@@ -1,5 +1,8 @@
+/** aaa */
 export type Announcement = {
+  /** this is title */
   title: string
+  /** this is content */
   content: string
 }
 
