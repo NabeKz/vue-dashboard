@@ -12,7 +12,7 @@ export const useEditForm = (props: Props, emits: Emits) => {
 
   const onSubmit = handleSubmit(async form => {
     await withOverlay(
-      () => props.onUpdate({ ...form, id: props.data.id }),
+      () => props.update({ ...form, id: props.data.id }),
       async () => {
         emits("success")
       },

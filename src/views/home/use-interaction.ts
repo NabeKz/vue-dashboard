@@ -41,8 +41,9 @@ export const useInteraction = (
       async e => console.error(e),
     )
   }
-  const onUpdate = (data: Announcement) => repository.update(data)
   const onCloseModal = () => (_modalState.value = { mode: "close" })
+
+  const update = (data: Announcement) => repository.update(data)
 
   const fetchData = async () => {
     await withOverlay(
@@ -65,7 +66,7 @@ export const useInteraction = (
     refresh,
     modalState,
     announcementList,
-    onUpdate,
+    update,
     onCloseModal,
     onOpenAddModal,
     onOpenEditModal,

@@ -2,7 +2,7 @@ import type { AnnouncementWithId } from "@/views/home/model"
 
 export type Props = {
   data: AnnouncementWithId
-  onUpdate: (data: AnnouncementWithId) => Promise<void>
+  update: (data: AnnouncementWithId) => Promise<void>
 }
 
 export type Emits = {

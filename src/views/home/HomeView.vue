@@ -19,7 +19,7 @@ const {
   modalState,
   announcementList,
   refresh,
-  onUpdate,
+  update,
   onCloseModal,
   onOpenAddModal,
   onOpenEditModal,
@@ -61,7 +61,7 @@ const {
     <template v-if="modalState.data">
       <EditModal
         :data="modalState.data"
-        :onUpdate="onUpdate"
+        :update="update"
         @success="refresh"
         @close="onCloseModal"
       />
