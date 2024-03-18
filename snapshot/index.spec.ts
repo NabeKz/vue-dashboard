@@ -1,20 +1,21 @@
-import { test, expect } from "@playwright/test"
+import { expect, test } from "@playwright/test"
 import { readFileSync } from "node:fs"
 import { resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 
 type Data = {
-  stories: {
+  entries: {
     id: string
     title: string
     name: string
+    type: string
   }[]
 }
 const storybookDir = fileURLToPath(new URL("../storybook-static", import.meta.url))
-const data: Data = JSON.parse(readFileSync(resolve(storybookDir, "stories.json")).toString())
+const data: Data = JSON.parse(readFileSync(resolve(storybookDir, "index.json")).toString())
 
 test.describe.parallel("visual regression testing", () => {
-  const stories = Object.values(data.stories).filter(story => !story.id.endsWith("docs"))
+  const stories = Object.values(data.entries).filter(story => story.type === "story")
 
   stories.forEach(story => {
     test(`snapshot test ${story.title}: ${story.name}`, async ({ page }) => {
@@ -23,10 +24,10 @@ test.describe.parallel("visual regression testing", () => {
         timeout: 3 * 1000,
       })
 
-      expect(await page.screenshot({ fullPage: true })).toMatchSnapshot([
-        story.title,
-        `${story.id}.png`,
-      ])
+      expect(
+        // await page.screenshot({ path: dir.concat(story.title, ".png"), fullPage: true }),
+        await page.screenshot({ fullPage: true }),
+      ).toMatchSnapshot([story.title, `${story.title}.png`])
     })
   })
 })
