@@ -10,7 +10,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Primay: Story = {
+export const Primary: Story = {
   args: {
     data: { id: 1, title: "aa", content: "bb" },
     onUpdate: fn(),

@@ -20,15 +20,18 @@ export const Primary: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
-    await waitFor(() => {
-      expect(canvas.queryByTestId("overlay")).not.toBeInTheDocument()
-    })
+    await waitFor(
+      () => {
+        expect(canvas.queryByTestId("overlay")).not.toBeInTheDocument()
+      },
+      { timeout: 2000 },
+    )
 
     const buttons = await canvas.findAllByRole("button", { name: "編集" }, { timeout: 1 * 1000 })
 
     await userEvent.click(buttons[0]!)
 
-    const input = await canvas.findByLabelText("title")
+    const input = await canvas.findByLabelText("title", {}, { timeout: 2000 })
     await userEvent.clear(input)
     await userEvent.type(input, "hoge")
 

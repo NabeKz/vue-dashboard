@@ -22,8 +22,8 @@ const withOverlay = async <T,>(
   onSuccess: (data: T) => Promise<void>,
   onFailure: (e: unknown) => Promise<void>,
 ) => {
-  loading.value = true
   await nextTick()
+  loading.value = true
   try {
     const data = await command()
     await onSuccess(data)
