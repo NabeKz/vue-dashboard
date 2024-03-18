@@ -1,29 +1,30 @@
+import { fn } from "@storybook/test"
 import type { Meta, StoryObj } from "@storybook/vue3"
 import EditModal from "./EditModal.vue"
 
 const meta = {
-  title: "Home/EditModal",
   component: EditModal,
   tags: ["autodocs"],
+  args: {
+    update: fn(),
+    onClose: fn(),
+  },
+  argTypes: {
+    update: {
+      table: {
+        disable: true,
+      },
+    },
+  },
 } satisfies Meta<typeof EditModal>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-// More on interaction testing: https://storybook.js.org/docs/writing-tests/interaction-testing
-export const Normal: Story = {
+export const Primary: Story = {
   args: {
-    onSubmit: () => null,
-    onClose: () => null,
+    data: { id: 1, title: "aa", content: "bb" },
+    update: fn(),
   },
-  // play: async ({ canvasElement }: any) => {
-  //   const canvas = within(canvasElement)
-  //   const loginButton = canvas.getByRole("button", { name: /Log in/i })
-  //   await expect(loginButton).toBeInTheDocument()
-  //   await userEvent.click(loginButton)
-  //   await expect(loginButton).not.toBeInTheDocument()
-
-  //   const logoutButton = canvas.getByRole("button", { name: /Log out/i })
-  //   await expect(logoutButton).toBeInTheDocument()
-  // }
+  play: async ({ canvasElement }) => {},
 }

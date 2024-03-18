@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import LoaderOverlay from "@/components/layout/LoaderOverlay.vue"
 import SnackBar from "@/components/layout/SnackBar.vue"
-import { ref } from "vue"
+import { nextTick, ref } from "vue"
 // TODO: アーキリファクタ
 import { createContext } from "@/provider/use-context"
 
@@ -22,11 +22,13 @@ const withOverlay = async <T,>(
   onSuccess: (data: T) => Promise<void>,
   onFailure: (e: unknown) => Promise<void>,
 ) => {
+  await nextTick()
   loading.value = true
   try {
     const data = await command()
     await onSuccess(data)
   } catch (e) {
+    if (import.meta.env.DEV) console.error(e)
     await onFailure(e)
   } finally {
     loading.value = false

@@ -2,19 +2,28 @@
 import { FlexBox, SpaceBox } from "@/components/parts/box"
 import { TheButton } from "@/components/parts/button"
 import { TableContainer } from "@/components/parts/table"
+import { useOverlay } from "@/provider/use-context"
 import { ModalContainer } from "@/views/_shared_/components"
-import { ref } from "vue"
+import { onMounted } from "vue"
 import { AddModal, EditModal } from "./components"
 import type { AnnouncementRepository } from "./repository"
-import { useAnnouncement } from "./use-announcement"
-const props = defineProps<{ repository: AnnouncementRepository }>()
-const open = ref(false)
-const onClick = () => (open.value = !open.value)
-const handleAddAnnouncement = () => {
-  const form = { title: "test", content: "aaaa" }
-  addAnnouncement(form)
-}
-const { addAnnouncement, announcementList } = useAnnouncement(props.repository)
+import { useInteraction } from "./use-interaction"
+
+const props = defineProps<{
+  repository: AnnouncementRepository
+}>()
+
+const withOverlay = useOverlay()
+
+const {
+  modalState,
+  announcementList,
+  refresh,
+  update,
+  onCloseModal,
+  onOpenAddModal,
+  onOpenEditModal,
+} = useInteraction(props.repository, onMounted, withOverlay)
 </script>
 
 <template>
@@ -22,7 +31,7 @@ const { addAnnouncement, announcementList } = useAnnouncement(props.repository)
     home
     <FlexBox class="column">
       <FlexBox class="row">
-        <TheButton kind="submit" @click="handleAddAnnouncement">新規登録</TheButton>
+        <TheButton kind="submit" @click="onOpenAddModal">新規登録</TheButton>
       </FlexBox>
     </FlexBox>
     <SpaceBox h="10px" />
@@ -38,17 +47,25 @@ const { addAnnouncement, announcementList } = useAnnouncement(props.repository)
         <td>{{ item.title }}</td>
         <td>{{ item.content }}</td>
         <td>
-          <TheButton kind="submit" @click="onClick">編集</TheButton>
+          <TheButton kind="submit" @click="() => onOpenEditModal(item)">編集</TheButton>
         </td>
       </template>
     </TableContainer>
   </FlexBox>
 
-  <ModalContainer title="aaa" :open="open" @close="open = false">
-    <AddModal @close="open = false" @submit="console.debug" />
+  <ModalContainer title="登録モーダル" :open="modalState.isAdd" @close="onCloseModal">
+    <AddModal @submit="console.debug" @close="onCloseModal" />
   </ModalContainer>
-  <ModalContainer title="aaa" :open="open" @close="open = false">
-    <EditModal @close="open = false" @submit="console.debug" />
+
+  <ModalContainer title="編集モーダル" :open="modalState.isEdit" @close="onCloseModal">
+    <template v-if="modalState.data">
+      <EditModal
+        :data="modalState.data"
+        :update="update"
+        @success="refresh"
+        @close="onCloseModal"
+      />
+    </template>
   </ModalContainer>
 </template>
 

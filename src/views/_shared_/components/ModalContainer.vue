@@ -1,20 +1,24 @@
 <script setup lang="ts">
 import { FlexBox } from "@/components/parts/box"
+import { onMounted, onUnmounted, ref } from "vue"
 
 type Props = {
   title: string
   open: boolean
-  onClose: () => void
 }
 
 defineProps<Props>()
-const emits = defineEmits<{ close: [] }>()
+defineEmits<{ close: [] }>()
+
+const mounted = ref(false)
+onMounted(() => (mounted.value = true))
+onUnmounted(() => (mounted.value = false))
 </script>
 
 <template>
-  <Teleport to="#modal-overlay">
+  <Teleport to="#modal-overlay" v-if="mounted">
     <Transition name="modal" mode="out-in">
-      <div v-if="open" class="modal-mask" @click.self="emits('close')">
+      <div v-if="open" class="modal-mask" @click.self="$emit('close')">
         <FlexBox class="column modal-content">
           <slot></slot>
         </FlexBox>
@@ -36,7 +40,6 @@ const emits = defineEmits<{ close: [] }>()
   width: 500px;
   height: 500px;
   background: white;
-  z-index: 1000;
   margin: auto;
 }
 

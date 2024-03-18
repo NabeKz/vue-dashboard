@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { isStoryBook } from "@/views/_shared_/storybook"
 import { ref } from "vue"
 import { RouterView } from "vue-router"
 import SideMenu from "./SideMenu.vue"
@@ -15,7 +16,12 @@ const toggle = () => (slim.value = !slim.value)
     <TheHeader class="header" />
     <SideMenu class="aside" @toggle="toggle" :slim="slim" />
     <Main class="main">
-      <RouterView />
+      <template v-if="isStoryBook">
+        <slot></slot>
+      </template>
+      <template v-else>
+        <RouterView />
+      </template>
     </Main>
   </div>
 </template>

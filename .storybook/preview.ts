@@ -1,21 +1,11 @@
-import { setup, type Preview } from "@storybook/vue3"
-
-import "../src/assets/main.css"
+import { type Preview } from "@storybook/vue3"
 import { AppProvider } from "../src/provider"
-import { ProtectedLayout, PublicLayout } from "../src/components/layout"
-import { h } from "vue"
 
-setup(app => {
-  app.component("AppProvider", AppProvider)
-  // RouterViewをmockするため
-  PublicLayout.setup = (_, ctx) => () => h("div", { class: "wrapper" }, ctx.slots)
-  app.component("PublicLayout", PublicLayout)
-  app.component("ProtectedLayout", ProtectedLayout)
-})
+import { useMockAuth } from "@/test/helper"
+import "../src/assets/main.css"
 
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -24,8 +14,9 @@ const preview: Preview = {
     },
   },
   decorators: [
+    useMockAuth,
     story => ({
-      components: { story },
+      components: { story, AppProvider },
       template: `
         <div id="app">
           <AppProvider>

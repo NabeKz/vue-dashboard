@@ -2,20 +2,12 @@
 import { FlexBox } from "@/components/parts/box"
 import { TheButton } from "@/components/parts/button"
 import { TextInput } from "@/components/parts/form"
-import { ref } from "vue"
+import type { Emits, Props } from "./types"
+import { useEditForm } from "./use-edit-form"
 
-type Props = {
-  onSubmit: (model: Model) => void
-  onClose: () => void
-}
-defineProps<Props>()
-defineEmits<{ close: []; submit: [model: Model] }>()
-
-type Model = {
-  name: string
-  title: string
-}
-const model = ref<Model>({ name: "", title: "" })
+const props = defineProps<Props>()
+const emits = defineEmits<Emits>()
+const { title, content, errors, onSubmit } = useEditForm(props, emits)
 </script>
 
 <template>
@@ -25,10 +17,15 @@ const model = ref<Model>({ name: "", title: "" })
     </header>
     <form @submit.prevent>
       <FlexBox class="column" gap="24">
-        <TextInput name="name" label="name" v-model="model.name" :error-message="''" />
-        <TextInput name="title" label="title" v-model="model.title" :error-message="''" />
+        <TextInput name="title" label="title" v-model="title" :error-message="errors.title" />
+        <TextInput
+          name="content"
+          label="content"
+          v-model="content"
+          :error-message="errors.content"
+        />
         <FlexBox class="row buttons" gap="24">
-          <TheButton kind="submit" @click="$emit('submit', model)">submit</TheButton>
+          <TheButton kind="submit" @click="onSubmit">submit</TheButton>
           <TheButton kind="submit" @click="$emit('close')">close</TheButton>
         </FlexBox>
       </FlexBox>

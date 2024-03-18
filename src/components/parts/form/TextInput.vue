@@ -1,30 +1,22 @@
 <script setup lang="ts">
+import { computed } from "vue"
+
 type Props = {
   label: string
   name: string
-  modelValue: string | undefined
   errorMessage: string | undefined
+  mask?: true
 }
-defineProps<Props>()
-defineEmits<{ "update:modelValue": [value: string] }>()
 
-const toValue = (e: Event) => {
-  if (e.target instanceof HTMLInputElement) {
-    return e.target.value
-  }
-  return ""
-}
+const props = defineProps<Props>()
+const model = defineModel<string | undefined>({ required: true })
+const type = computed(() => (props.mask ? "password" : "text"))
 </script>
 
 <template>
   <div class="input-field">
     <label :for="name">{{ label }}</label>
-    <input
-      v-bind="$attrs"
-      @input="$emit('update:modelValue', toValue($event))"
-      :value="modelValue"
-      :id="name"
-    />
+    <input :type="type" v-model="model" :id="name" />
     <span class="error">{{ errorMessage }}</span>
   </div>
 </template>
