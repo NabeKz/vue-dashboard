@@ -4,12 +4,10 @@ import type { Meta, StoryObj } from "@storybook/vue3"
 import HomeView from "./HomeView.vue"
 import { AnnouncementRepositoryOnMemory } from "./repository"
 
+/** Home Viewです */
 const meta = {
   component: HomeView,
   tags: ["autodocs"],
-  args: {
-    repository: new AnnouncementRepositoryOnMemory(),
-  },
   decorators: [useMockAuth, protectedLayout],
 } satisfies Meta<typeof HomeView>
 
@@ -17,6 +15,9 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
+  args: {
+    repository: new AnnouncementRepositoryOnMemory(),
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 

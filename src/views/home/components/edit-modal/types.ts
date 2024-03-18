@@ -6,7 +6,7 @@ export type Props = {
 }
 
 export type Emits = {
-  (e: "success"): () => void
-  (e: "failure"): () => void
-  (e: "close"): () => void
+  success: []
+  failure: []
+  close: []
 }

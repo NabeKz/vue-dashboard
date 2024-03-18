@@ -7,7 +7,11 @@ import { useErrorHandler } from "@/provider/use-context"
 import { useLogin } from "./use-login"
 
 const { repository, storage } = defineProps<{
+  /** sample */
   repository: AuthRepository
+  /** hoge
+   * aaa
+   */
   storage: TokenStorage
 }>()
 

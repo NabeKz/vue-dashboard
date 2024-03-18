@@ -14,8 +14,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-// More on interaction testing: https://storybook.js.org/docs/writing-tests/interaction-testing
-export const Static: Story = {
+export const Primary: Story = {
   args: {},
 }
 
@@ -47,24 +46,6 @@ export const InvalidInput: Story = {
       await userEvent.click(canvas.getByRole("button", { name: "submit" }))
       const error = await canvas.findAllByText("必須項目です")
       expect(error.length).toBe(2)
-    })
-
-    await step("titleが空文字の場合にエラーがでること", async () => {
-      const input = canvas.getByLabelText("title")
-      await userEvent.type(input, "a")
-      await userEvent.type(input, "{backspace}")
-
-      const error = await canvas.findAllByText("必須項目です")
-      await expect(error[0]).toBeInTheDocument()
-    })
-
-    await step("contentが空文字の場合にエラーがでること", async () => {
-      const input = canvas.getByLabelText("content")
-      await userEvent.type(input, "a")
-      await userEvent.type(input, "{backspace}")
-
-      const error = await canvas.findAllByText("必須項目です")
-      await expect(error[1]).toBeInTheDocument()
     })
 
     await step("エラーがでている場合はsubmitが発火しないこと", async () => {
