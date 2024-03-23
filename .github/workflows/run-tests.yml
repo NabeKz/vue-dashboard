@@ -8,15 +8,11 @@ on:
 
 jobs:
   tests:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: "package.json"
 
       - name: Install pnpm
         uses: pnpm/action-setup@v3
@@ -24,21 +20,31 @@ jobs:
           version: 8
           run_install: false
 
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          node-version-file: "package.json"
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Get installed Playwright version
+        id: playwright-version
+        run: echo "PLAYWRIGHT_VERSION=$(pnpm playwright --version)" >> $GITHUB_ENV
+
+      - name: Setup Playwright cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
+          restore-keys: ${{ runner.os }}-playwright-cache-
+        id: playwright-cache
+
+      - name: Install Playwright
+        run: |
+          pnpm playwright install --with-deps &&
+          pnpm playwright install-deps
 
       - name: Tests
         run: pnpm test:unit
