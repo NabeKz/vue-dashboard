@@ -1,6 +1,7 @@
 import { ProtectedLayout } from "@/components/layout"
 import { AuthRepositoryOnMemory } from "@/infra/auth/on-memory"
 import { AnnouncementRepositoryOnMemory } from "@/views/home/repository"
+import type { RouteRecordRaw } from "vue-router"
 
 // TODO: implements di-container
 const Repositories = {
@@ -8,7 +9,7 @@ const Repositories = {
   announcement: new AnnouncementRepositoryOnMemory(),
 } as const
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: "",
     name: "home",

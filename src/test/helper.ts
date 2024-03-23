@@ -7,19 +7,9 @@ import { getCurrentInstance } from "vue"
 
 export const sleep = (s: number) => new Promise(resolve => setTimeout(resolve, s * 1000))
 
-export const useMockRouter = () => ({
-  setup() {
-    const { app } = getCurrentInstance()!.appContext
-    const router = createRouter("Memory")
-    app.use(router)
-  },
-  template: "<story />",
-})
-
 const mockStorage = { saveToke: fn(), logout: fn() }
 
 export const useMockAuth = () => ({
-  components: { PublicLayout },
   setup() {
     provideAuth(mockStorage as any)
   },
@@ -30,6 +20,10 @@ export const useMockAuth = () => ({
 
 export const publicLayout = () => ({
   components: { PublicLayout },
+  setup() {
+    const { app } = getCurrentInstance()!.appContext
+    app.use(router)
+  },
   template: `
     <PublicLayout>
       <story />
@@ -38,6 +32,7 @@ export const publicLayout = () => ({
 })
 
 const router = createRouter("Memory")
+
 export const protectedLayout = () => ({
   components: { ProtectedLayout },
   setup() {

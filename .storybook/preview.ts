@@ -15,8 +15,8 @@ const preview: Preview = {
   },
   decorators: [
     useMockAuth,
-    story => ({
-      components: { story, AppProvider },
+    () => ({
+      components: { AppProvider },
       template: `
         <div id="app">
           <AppProvider>

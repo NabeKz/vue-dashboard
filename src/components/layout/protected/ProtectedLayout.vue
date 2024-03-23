@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { isStoryBook } from "@/views/_shared_/storybook"
-import { ref } from "vue"
-import { RouterView } from "vue-router"
-import SideMenu from "./SideMenu.vue"
-import TheHeader from "./TheHeader.vue"
-import Main from "./TheMain.vue"
+const isStoryBook = import.meta.env.STORYBOOK || import.meta.env.NODE_ENV === "test"
+import { ref } from "vue";
+import { RouterView } from "vue-router";
+import SideMenu from "./SideMenu.vue";
+import TheHeader from "./TheHeader.vue";
+import Main from "./TheMain.vue";
 
 const slim = ref(false)
 const toggle = () => (slim.value = !slim.value)

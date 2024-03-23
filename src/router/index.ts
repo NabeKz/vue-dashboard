@@ -1,6 +1,6 @@
 import * as VueRouter from "vue-router"
-import { publicRoutes } from "./unauth-route"
 import { protectedRoutes } from "./auth-route"
+import { publicRoutes } from "./unauth-route"
 
 export const createRouter = (type: "Memory" | "Web") => {
   return VueRouter.createRouter({

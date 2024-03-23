@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isStoryBook } from "@/views/_shared_/storybook"
+const isStoryBook = import.meta.env.STORYBOOK || import.meta.env.NODE_ENV === "test"
 import { RouterView } from "vue-router"
 </script>
 
