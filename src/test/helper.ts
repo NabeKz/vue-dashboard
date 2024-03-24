@@ -3,7 +3,7 @@ import { ProtectedLayout, PublicLayout } from "@/components/layout"
 import { provideAuth } from "@/provider/auth-provider/use-auth"
 import { createRouter } from "@/router"
 import { fn } from "@storybook/test"
-import { getCurrentInstance } from "vue"
+import { defineComponent, getCurrentInstance } from "vue"
 
 export const sleep = (s: number) => new Promise(resolve => setTimeout(resolve, s * 1000))
 
@@ -18,11 +18,15 @@ export const useMockAuth = () => ({
   `,
 })
 
-export const publicLayout = () => ({
+const mockRouter = () => []
+
+export const publicLayout = (name: "login") => () => ({
   components: { PublicLayout },
   setup() {
     const { app } = getCurrentInstance()!.appContext
+    const router = createRouter("Memory")
     app.use(router)
+    router.push({ name })
   },
   template: `
     <PublicLayout>
@@ -31,13 +35,17 @@ export const publicLayout = () => ({
   `,
 })
 
-const router = createRouter("Memory")
+const RouterView = defineComponent({
+  template: `
+    <component :is="$parent.$parent.$slots.default" />
+  `,
+})
 
-export const protectedLayout = () => ({
+export const protectedLayout = () => () => ({
   components: { ProtectedLayout },
   setup() {
     const { app } = getCurrentInstance()!.appContext
-    app.use(router)
+    app.component("RouterView", RouterView)
   },
   template: `
     <ProtectedLayout>

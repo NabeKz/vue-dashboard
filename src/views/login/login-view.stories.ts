@@ -8,7 +8,7 @@ import LoginView from "./LoginView.vue"
 const meta = {
   component: LoginView,
   tags: ["autodocs"],
-  decorators: [publicLayout],
+  decorators: [publicLayout("login")],
 } satisfies Meta<typeof LoginView>
 
 export default meta
@@ -20,13 +20,17 @@ const defaultArgs = {
   storage: new LocalStorage(),
 }
 
+export const Primary: Story = {
+  args: { ...defaultArgs },
+}
+
 export const LoginSuccess: Story = {
   args: { ...defaultArgs },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    await userEvent.type(canvas.getByLabelText("email"), "test1")
-    await userEvent.type(canvas.getByLabelText("password"), "test1")
-    await userEvent.click(canvas.getByRole("button"))
+    await userEvent.type(await canvas.findByLabelText("email"), "test1")
+    await userEvent.type(await canvas.findByLabelText("password"), "test1")
+    await userEvent.click(await canvas.findByRole("button"))
   },
 }
 

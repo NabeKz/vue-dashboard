@@ -1,10 +1,9 @@
 <script setup lang="ts">
-const isStoryBook = import.meta.env.STORYBOOK || import.meta.env.NODE_ENV === "test"
-import { ref } from "vue";
-import { RouterView } from "vue-router";
-import SideMenu from "./SideMenu.vue";
-import TheHeader from "./TheHeader.vue";
-import Main from "./TheMain.vue";
+import { ref } from "vue"
+// import { RouterView } from "vue-router"
+import SideMenu from "./SideMenu.vue"
+import TheHeader from "./TheHeader.vue"
+import Main from "./TheMain.vue"
 
 const slim = ref(false)
 const toggle = () => (slim.value = !slim.value)
@@ -16,12 +15,7 @@ const toggle = () => (slim.value = !slim.value)
     <TheHeader class="header" />
     <SideMenu class="aside" @toggle="toggle" :slim="slim" />
     <Main class="main">
-      <template v-if="isStoryBook">
-        <slot></slot>
-      </template>
-      <template v-else>
-        <RouterView />
-      </template>
+      <RouterView />
     </Main>
   </div>
 </template>

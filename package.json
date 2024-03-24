@@ -16,7 +16,7 @@
     "storybook": "storybook dev -p 6006 --no-open",
     "storybook:build": "storybook build --stats-json",
     "storybook:docs": "storybook build --docs",
-    "snapshot": "npx playwright test -c playwright.snapshot.config.ts",
+    "screenshot": "npx playwright test -c playwright.snapshot.config.ts",
     "prepare": "husky"
   },
   "dependencies": {
