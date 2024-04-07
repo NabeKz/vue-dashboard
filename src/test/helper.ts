@@ -55,5 +55,5 @@ export const protectedLayout = () => () => ({
 })
 
 export const getErrorField = (el: HTMLElement) => {
-  return el.nextSibling!
+  return el.nextSibling
 }
