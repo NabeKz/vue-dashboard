@@ -41,7 +41,7 @@ jobs:
         run: |
           PLAYWRIGHT_VERSION=$(pnpm playwright -V | awk '{ print $2 }')
           echo Playwright Version is $PLAYWRIGHT_VERSION
-          echo "$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
+          echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
 
       - name: Setup Playwright cache
         uses: actions/cache@v4
