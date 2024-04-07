@@ -55,6 +55,6 @@ export const protectedLayout = () => () => ({
 })
 
 export const getErrorField = (el: HTMLElement) => {
-  console.debug("test not WIP push")
+  console.debug("test synchronize")
   return el.nextSibling!
 }

@@ -5,6 +5,7 @@ on:
     types:
       # draftからPRレビューに変わったとき
       - ready_for_review
+      - synchronize
   # push:
   #   branches: ["main"]
 
