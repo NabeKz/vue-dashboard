@@ -13,6 +13,7 @@ module.exports = {
     "@vue/eslint-config-prettier/skip-formatting",
     "plugin:unicorn/recommended",
     "plugin:storybook/recommended",
+    "plugin:vuejs-accessibility/recommended",
   ],
   parserOptions: {
     ecmaVersion: "latest",
