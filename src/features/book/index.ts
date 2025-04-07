@@ -6,6 +6,10 @@ export type Book = ApiResponse<"BookSuccess">[number] & {
   isOverReturnDate: boolean
 }
 
+export type Props = {
+  date?: string
+}
+
 export const createBook =
   (date: string | undefined) =>
   (res: ApiResponse<"BookSuccess">[number]): Book => {
