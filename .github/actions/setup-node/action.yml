@@ -5,8 +5,11 @@ description: Setup Environment Variables for Django Project
 runs:
   using: composite
   steps:
-    - run: corepack enable
-      shell: bash
+    - uses: pnpm/action-setup@v4
+      name: Install pnpm
+      with:
+        version: 10
+        run_install: false
 
     - name: Install Node.js
       uses: actions/setup-node@v4
