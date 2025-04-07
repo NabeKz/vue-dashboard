@@ -6,7 +6,7 @@ import { type Schema, schema } from "@/views/book/list/model"
 import type { Props } from "@/views/book/list/types"
 
 export const useInteract = (date: () => Props["date"]) => {
-  const _books = ref<Book[]>()
+  const books = ref<Book[]>()
 
   const { defineField } = useCustomForm<Schema>(schema)
 
@@ -15,7 +15,7 @@ export const useInteract = (date: () => Props["date"]) => {
     if (error) {
       console.debug(error)
     } else {
-      _books.value = data.map(createBook(value))
+      books.value = data.map(createBook(value))
     }
   }
 
@@ -26,14 +26,12 @@ export const useInteract = (date: () => Props["date"]) => {
     if (error) {
       console.debug(error)
     } else {
-      _books.value = data.map(createBook(date()))
+      books.value = data.map(createBook(date()))
     }
   })
 
-  const books = computed(() => _books.value)
-
   return {
-    books,
+    books: computed(() => books.value),
     onChangeDate,
     defineField,
   }
