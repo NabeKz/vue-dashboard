@@ -20,15 +20,17 @@ const id = `input-${crypto.randomUUID()}`
 
 <template>
   <div class="input-container">
-    <label :for="id">{{ label }}</label>
-    <input
-      type="text"
-      v-bind="$attrs"
-      :id="id"
-      :class="classes"
-      :placeholder="placeholder"
-      v-model="model"
-    />
+    <label :for="id">
+      {{ label }}
+      <input
+        type="text"
+        v-bind="$attrs"
+        :id="id"
+        :class="classes"
+        :placeholder="placeholder"
+        v-model="model"
+      />
+    </label>
     <p class="error-message" v-if="errorMessage">{{ errorMessage }}</p>
   </div>
 </template>

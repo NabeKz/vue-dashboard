@@ -12,7 +12,14 @@ const closeModal = () => emits("close")
 
 <template>
   <Transition>
-    <div class="overlay" v-if="isOpen" @click="closeModal">
+    <div
+      class="overlay"
+      v-if="isOpen"
+      @click="closeModal"
+      @keypress="closeModal"
+      role="button"
+      tabindex="0"
+    >
       <div class="dialog">
         <div class="content" @click.stop>
           <slot name="content" v-bind="{ closeModal }"> </slot>

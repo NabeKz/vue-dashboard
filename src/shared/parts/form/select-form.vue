@@ -5,9 +5,6 @@ const id = useId()
 defineProps<{
   label: string
 }>()
-
-const model = defineModel<string | undefined>({ required: true })
-const selected = () => {}
 </script>
 
 <template>
@@ -21,14 +18,4 @@ const selected = () => {}
   </div>
 </template>
 
-<style scoped>
-.select {
-}
-
-ul[role="listbox"] {
-  position: absolute;
-}
-
-li[role="option"] {
-}
-</style>
+<style scoped></style>

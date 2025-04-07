@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { AlertDialog } from "@/shared//parts"
-import { FlexCol, InputForm } from "@/shared/parts"
+import { FlexCol, TheForm } from "@/shared/parts"
 import { SubmitButton } from "@/shared/parts/button"
 import { TextField } from "@/shared/parts/form"
 import { useInteract } from "./composable"
@@ -19,7 +19,7 @@ const [password, passwordAttrs] = defineField("password")
       <FlexCol class="header">
         <h1>This is Header Area</h1>
       </FlexCol>
-      <InputForm id="login-form">
+      <TheForm id="login-form">
         <TextField
           size="large"
           label="id"
@@ -36,7 +36,7 @@ const [password, passwordAttrs] = defineField("password")
           v-bind="passwordAttrs"
         />
         <SubmitButton :isSubmitting="isSubmitting" @click="onClickSubmit">submit</SubmitButton>
-      </InputForm>
+      </TheForm>
     </FlexCol>
   </main>
 
