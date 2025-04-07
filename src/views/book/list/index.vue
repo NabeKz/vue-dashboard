@@ -11,10 +11,10 @@ const id = useId()
   <main>
     <div>search</div>
     <TheForm>
-      <label :for="id"> キーワード <input :id="id" /> </label>
-      <label :for="id"> 著者 <input :id="id" /> </label>
-      <label :for="id"> 資料区部 <input :id="id" /> </label>
-      <label :for="id"> 資料種別 <input :id="id" /> </label>
+      <label :for="`${id}-1`"> キーワード <input :id="`${id}-1`" /> </label>
+      <label :for="`${id}-2`"> 著者 <input :id="`${id}-2`" /> </label>
+      <label :for="`${id}-3`"> 資料区部 <input :id="`${id}-3`" /> </label>
+      <label :for="`${id}-4`"> 資料種別 <input :id="`${id}-4`" /> </label>
       <button type="submit">submit</button>
     </TheForm>
   </main>
